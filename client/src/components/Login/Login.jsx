@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
 const Login = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
     password: ''
@@ -19,6 +21,8 @@ const Login = () => {
     e.preventDefault();
     // Handle login logic here
     console.log('Login attempt:', formData);
+    // For now, just navigate to admin dashboard
+    navigate('/admin/dashboard');
   };
 
   return (
