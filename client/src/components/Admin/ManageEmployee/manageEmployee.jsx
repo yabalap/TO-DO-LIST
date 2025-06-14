@@ -47,6 +47,37 @@ const ManageEmployee = () => {
     navigate('/admin/add-employee');
   };
 
+  const handleEditEmployee = (id) => {
+    navigate(`/admin/edit-employee/${id}`);
+  };
+
+  const handleDeleteEmployee = async (id) => {
+    if (window.confirm('Are you sure you want to delete this employee?')) {
+      try {
+        const response = await fetch('http://localhost/TO-DO-LIST/server/employee/delete_employee.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ id }),
+          credentials: 'include',
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // Refresh the employee list
+          fetchEmployees();
+        } else {
+          setError(data.message || 'Failed to delete employee');
+        }
+      } catch (err) {
+        setError('An error occurred while deleting employee');
+        console.error('Error deleting employee:', err);
+      }
+    }
+  };
+
   const filteredEmployees = employees.filter(employee =>
     employee.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     employee.department.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -108,8 +139,18 @@ const ManageEmployee = () => {
                 </td>
                 <td>{new Date(employee.created_at).toLocaleDateString()}</td>
                 <td>
-                  <button className="action-button edit">Edit</button>
-                  <button className="action-button delete">Delete</button>
+                  <button 
+                    className="action-button edit"
+                    onClick={() => handleEditEmployee(employee.id)}
+                  >
+                    Edit
+                  </button>
+                  <button 
+                    className="action-button delete"
+                    onClick={() => handleDeleteEmployee(employee.id)}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}

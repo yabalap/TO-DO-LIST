@@ -7,6 +7,7 @@ import DashboardAdmin from './components/Admin/AdminDashboard/dashboardAdmin';
 import DashboardEmployee from './components/Employee/EmployeeDashboard/dashboardEmployee';
 import ManageEmployee from './components/Admin/ManageEmployee/manageEmployee';
 import AddUser from './components/Admin/ManageEmployee/addUser';
+import EditUser from './components/Admin/ManageEmployee/editUser';
 
 // Protected Route Component
 const ProtectedRoute = ({ children, allowedRoles }) => {
@@ -70,6 +71,7 @@ function App() {
           <Route path="dashboard" element={<DashboardAdmin />} />
           <Route path="manage-employee" element={<ManageEmployee />} />
           <Route path="add-employee" element={<AddUser />} />
+          <Route path="edit-employee/:id" element={<EditUser />} />
           <Route path="upload" element={<div>Upload Page</div>} />
           <Route path="monitoring" element={<div>Monitoring Page</div>} />
           <Route path="audit-logs" element={<div>Audit Logs Page</div>} />
