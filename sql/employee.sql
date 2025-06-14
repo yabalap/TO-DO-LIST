@@ -59,12 +59,9 @@ BEGIN
         SET MESSAGE_TEXT = 'Username already exists';
     END IF;
 
-    -- Hash password using SHA2
-    SET @hashed_password = SHA2(p_password, 256);
-
-    -- Insert into users table
+    -- Insert into users table with password as is (will be hashed by PHP)
     INSERT INTO users (username, password, role)
-    VALUES (p_username, @hashed_password, p_role);
+    VALUES (p_username, p_password, p_role);
     
     -- Insert into employee table
     INSERT INTO employee (name, department, username)
@@ -109,9 +106,8 @@ BEGIN
 
     -- Update user if password or role is provided
     IF p_password IS NOT NULL AND p_password != '' THEN
-        SET @hashed_password = SHA2(p_password, 256);
         UPDATE users 
-        SET password = @hashed_password,
+        SET password = p_password,
             role = COALESCE(p_role, role)
         WHERE username = p_username;
     ELSEIF p_role IS NOT NULL THEN

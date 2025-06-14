@@ -27,6 +27,9 @@ try {
         throw new Exception("All fields are required");
     }
 
+    // Hash the password
+    $hashed_password = password_hash($data->password, PASSWORD_DEFAULT);
+
     // Call the stored procedure
     $query = "CALL add_employee_with_user(?, ?, ?, ?, ?)";
     $stmt = $db->prepare($query);
@@ -34,7 +37,7 @@ try {
         $data->name,
         $data->department,
         $data->username,
-        $data->password,
+        $hashed_password,
         $data->role
     ]);
 

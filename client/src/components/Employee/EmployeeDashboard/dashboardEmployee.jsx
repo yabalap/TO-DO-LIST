@@ -11,7 +11,6 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import SidebarEmployee from '../Sidebar_Navbar/sidebarEmployee';
 import '../../../css/Employee/dashboard.css';
 
 // Register ChartJS components
@@ -78,59 +77,54 @@ const DashboardEmployee = () => {
   }, []);
 
   return (
-    <div className="employee-layout">
-      <SidebarEmployee />
-      <div className="main-content">
-        <div className="dashboard-container">
-          <h1>My Dashboard</h1>
-          
-          {/* Statistics Cards */}
-          <div className="stats-container">
-            <div className="stat-card">
-              <FaTasks className="stat-icon" />
-              <div className="stat-info">
-                <h3>My Tasks</h3>
-                <p>{stats.totalTasks}</p>
-              </div>
-            </div>
-            <div className="stat-card">
-              <FaCheckCircle className="stat-icon" />
-              <div className="stat-info">
-                <h3>Completed</h3>
-                <p>{stats.completedTasks}</p>
-              </div>
-            </div>
-            <div className="stat-card">
-              <FaClock className="stat-icon" />
-              <div className="stat-info">
-                <h3>Pending</h3>
-                <p>{stats.pendingTasks}</p>
-              </div>
-            </div>
+    <div className="dashboard-container">
+      <h1>My Dashboard</h1>
+      
+      {/* Statistics Cards */}
+      <div className="stats-container">
+        <div className="stat-card">
+          <FaTasks className="stat-icon" />
+          <div className="stat-info">
+            <h3>My Tasks</h3>
+            <p>{stats.totalTasks}</p>
           </div>
+        </div>
+        <div className="stat-card">
+          <FaCheckCircle className="stat-icon" />
+          <div className="stat-info">
+            <h3>Completed</h3>
+            <p>{stats.completedTasks}</p>
+          </div>
+        </div>
+        <div className="stat-card">
+          <FaClock className="stat-icon" />
+          <div className="stat-info">
+            <h3>Pending</h3>
+            <p>{stats.pendingTasks}</p>
+          </div>
+        </div>
+      </div>
 
-          {/* Chart Section */}
-          <div className="chart-container">
-            <Line data={chartData} options={chartOptions} />
-          </div>
+      {/* Chart Section */}
+      <div className="chart-container">
+        <Line data={chartData} options={chartOptions} />
+      </div>
 
-          {/* Recent Tasks */}
-          <div className="recent-tasks">
-            <div className="section-header">
-              <h2>My Recent Tasks</h2>
-              <button className="add-task-btn">
-                <FaPlus /> Add Task
-              </button>
+      {/* Recent Tasks */}
+      <div className="recent-tasks">
+        <div className="section-header">
+          <h2>My Recent Tasks</h2>
+          <button className="add-task-btn">
+            <FaPlus /> Add Task
+          </button>
+        </div>
+        <div className="tasks-list">
+          {recentTasks.map((task) => (
+            <div key={task.id} className={`task-item ${task.status}`}>
+              <span className="task-title">{task.title}</span>
+              <span className="task-status">{task.status}</span>
             </div>
-            <div className="tasks-list">
-              {recentTasks.map((task) => (
-                <div key={task.id} className={`task-item ${task.status}`}>
-                  <span className="task-title">{task.title}</span>
-                  <span className="task-status">{task.status}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>

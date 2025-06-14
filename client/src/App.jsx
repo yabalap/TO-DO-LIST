@@ -19,6 +19,10 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
   }
 
   if (allowedRoles && !allowedRoles.includes(userRole)) {
+    // If user is employee but role is 'user', allow access
+    if (userRole === 'employee' && allowedRoles.includes('user')) {
+      return children;
+    }
     return <Navigate to={`/${userRole}/dashboard`} replace />;
   }
 
@@ -82,12 +86,16 @@ function App() {
         <Route 
           path="/employee" 
           element={
-            <ProtectedRoute allowedRoles={['user']}>
+            <ProtectedRoute allowedRoles={['user', 'employee']}>
               <EmployeeLayouts />
             </ProtectedRoute>
           }
         >
           <Route path="dashboard" element={<DashboardEmployee />} />
+          <Route path="upload" element={<div className="page-container">Upload Page</div>} />
+          <Route path="monitoring" element={<div className="page-container">Monitoring Page</div>} />
+          <Route path="audit-logs" element={<div className="page-container">Audit Logs Page</div>} />
+          <Route path="profile" element={<div className="page-container">Profile Page</div>} />
           <Route index element={<Navigate to="dashboard" replace />} />
         </Route>
 
