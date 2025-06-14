@@ -8,6 +8,8 @@ const Login = () => {
     username: '',
     password: ''
   });
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -17,18 +19,54 @@ const Login = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log('Login attempt:', formData);
-    // For now, just navigate to admin dashboard
-    navigate('/admin/dashboard');
+    setError('');
+    setLoading(true);
+    
+    try {
+      console.log('Attempting login with:', formData);
+      
+      const response = await fetch('http://localhost/TO-DO-LIST/server/auth/login.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.json();
+      console.log('Login response:', data);
+
+      if (response.ok) {
+        // Store the JWT token and user data
+        localStorage.setItem('token', data.jwt);
+        localStorage.setItem('userRole', data.role);
+        localStorage.setItem('userData', JSON.stringify(data.user));
+        
+        // Redirect based on role
+        if (data.role === 'admin') {
+          navigate('/admin/dashboard', { replace: true });
+        } else {
+          navigate('/employee/dashboard', { replace: true });
+        }
+      } else {
+        setError(data.message || 'Login failed');
+      }
+    } catch (err) {
+      console.error('Login error:', err);
+      setError('An error occurred. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="login-container">
       <form className="login-form" onSubmit={handleSubmit}>
         <h2>Login</h2>
+        {error && <div className="error-message">{error}</div>}
         <div className="form-group">
           <label htmlFor="username">Username</label>
           <input
@@ -38,6 +76,8 @@ const Login = () => {
             value={formData.username}
             onChange={handleChange}
             required
+            disabled={loading}
+            placeholder="Enter your username"
           />
         </div>
         <div className="form-group">
@@ -49,9 +89,17 @@ const Login = () => {
             value={formData.password}
             onChange={handleChange}
             required
+            disabled={loading}
+            placeholder="Enter your password"
           />
         </div>
-        <button type="submit" className="login-button">Login</button>
+        <button 
+          type="submit" 
+          className="login-button"
+          disabled={loading}
+        >
+          {loading ? 'Logging in...' : 'Login'}
+        </button>
       </form>
     </div>
   );
