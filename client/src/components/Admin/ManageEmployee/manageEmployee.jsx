@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../../css/Admin/manageEmployee.css';
 import { FaSearch, FaPlus } from 'react-icons/fa';
@@ -6,12 +6,38 @@ import { FaSearch, FaPlus } from 'react-icons/fa';
 const ManageEmployee = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
-  const [users, setUsers] = useState([
-    // Sample data - replace with actual API call
-    { id: 1, name: 'John Doe', department: 'IT', role: 'Developer', status: 'Active' },
-    { id: 2, name: 'Jane Smith', department: 'HR', role: 'Manager', status: 'Active' },
-    { id: 3, name: 'Mike Johnson', department: 'Finance', role: 'Analyst', status: 'Inactive' },
-  ]);
+  const [employees, setEmployees] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetchEmployees();
+  }, []);
+
+  const fetchEmployees = async () => {
+    try {
+      const response = await fetch('http://localhost/TO-DO-LIST/server/employee/get_employees.php', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setEmployees(data.employees);
+      } else {
+        setError(data.message || 'Failed to fetch employees');
+      }
+    } catch (err) {
+      setError('An error occurred while fetching employees');
+      console.error('Error fetching employees:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
@@ -21,10 +47,19 @@ const ManageEmployee = () => {
     navigate('/admin/add-employee');
   };
 
-  const filteredUsers = users.filter(user =>
-    user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    user.department.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredEmployees = employees.filter(employee =>
+    employee.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    employee.department.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    employee.username.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  if (loading) {
+    return <div className="loading">Loading employees...</div>;
+  }
+
+  if (error) {
+    return <div className="error">{error}</div>;
+  }
 
   return (
     <div className="manage-employee-container">
@@ -52,24 +87,26 @@ const ManageEmployee = () => {
             <tr>
               <th>ID</th>
               <th>Name</th>
+              <th>Username</th>
               <th>Department</th>
               <th>Role</th>
-              <th>Status</th>
+              <th>Created At</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {filteredUsers.map((user) => (
-              <tr key={user.id}>
-                <td>{user.id}</td>
-                <td>{user.name}</td>
-                <td>{user.department}</td>
-                <td>{user.role}</td>
+            {filteredEmployees.map((employee) => (
+              <tr key={employee.id}>
+                <td>{employee.id}</td>
+                <td>{employee.name}</td>
+                <td>{employee.username}</td>
+                <td>{employee.department}</td>
                 <td>
-                  <span className={`status-badge ${user.status.toLowerCase()}`}>
-                    {user.status}
+                  <span className={`status-badge ${employee.role.toLowerCase()}`}>
+                    {employee.role}
                   </span>
                 </td>
+                <td>{new Date(employee.created_at).toLocaleDateString()}</td>
                 <td>
                   <button className="action-button edit">Edit</button>
                   <button className="action-button delete">Delete</button>
