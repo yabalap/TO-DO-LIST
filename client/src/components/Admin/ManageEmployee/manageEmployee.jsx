@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../../../css/Admin/manageEmployee.css';
 import { FaSearch, FaPlus } from 'react-icons/fa';
 
 const ManageEmployee = () => {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [users, setUsers] = useState([
     // Sample data - replace with actual API call
@@ -13,6 +15,10 @@ const ManageEmployee = () => {
 
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
+  };
+
+  const handleAddEmployee = () => {
+    navigate('/admin/add-employee');
   };
 
   const filteredUsers = users.filter(user =>
@@ -34,7 +40,7 @@ const ManageEmployee = () => {
               onChange={handleSearch}
             />
           </div>
-          <button className="add-button">
+          <button className="add-button" onClick={handleAddEmployee}>
             <FaPlus /> Add Employee
           </button>
         </div>
