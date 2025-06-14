@@ -5,6 +5,7 @@ import AdminLayouts from './layouts/AdminLayouts';
 import EmployeeLayouts from './layouts/EmployeeLayouts';
 import DashboardAdmin from './components/Admin/AdminDashboard/dashboardAdmin';
 import DashboardEmployee from './components/Employee/EmployeeDashboard/dashboardEmployee';
+import ManageEmployee from './components/Admin/ManageEmployee/manageEmployee';
 
 // Protected Route Component
 const ProtectedRoute = ({ children, allowedRoles }) => {
@@ -66,7 +67,7 @@ function App() {
           }
         >
           <Route path="dashboard" element={<DashboardAdmin />} />
-          <Route path="manage-employee" element={<div>Manage Employee Page</div>} />
+          <Route path="manage-employee" element={<ManageEmployee />} />
           <Route path="upload" element={<div>Upload Page</div>} />
           <Route path="monitoring" element={<div>Monitoring Page</div>} />
           <Route path="audit-logs" element={<div>Audit Logs Page</div>} />
