@@ -11,6 +11,8 @@ const AddUser = () => {
     password: '',
     role: ''
   });
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
   const departments = ['Audit', 'Accounting', 'HR', 'Engineer', 'IT'];
   const roles = ['admin', 'employee'];
@@ -23,10 +25,46 @@ const AddUser = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // TODO: Add API call to save employee data
-    console.log('Form submitted:', formData);
+    setError('');
+    setSuccess('');
+
+    try {
+      const response = await fetch('http://localhost/TO-DO-LIST/server/employee/add_employee.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+        credentials: 'include'
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to add employee');
+      }
+
+      // Show success message
+      setSuccess('Employee added successfully!');
+      
+      // Clear form
+      setFormData({
+        name: '',
+        department: '',
+        username: '',
+        password: '',
+        role: ''
+      });
+      
+      // Navigate back to employee list after 2 seconds
+      setTimeout(() => {
+        navigate('/admin/manage-employee');
+      }, 2000);
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   const handleBack = () => {
@@ -38,6 +76,9 @@ const AddUser = () => {
       <div className="manage-employee-header">
         <h1>Add New Employee</h1>
       </div>
+      
+      {error && <div className="error-message">{error}</div>}
+      {success && <div className="success-message">{success}</div>}
       
       <form onSubmit={handleSubmit} className="add-employee-form">
         <div className="form-group">
