@@ -7,6 +7,8 @@
   position: fixed;
   left: 0;
   top: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar.collapsed {
@@ -37,6 +39,7 @@
 
 .sidebar-nav {
   padding: 20px 0;
+  flex: 1;
 }
 
 .nav-item {
@@ -109,4 +112,23 @@
   .sidebar.expanded + .main-content {
     margin-left: 250px;
   }
+}
+
+.sidebar-footer {
+  border-top: 1px solid #34495e;
+  padding: 20px 0;
+}
+
+.logout-btn {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white;
+  font-size: 1rem;
+}
+
+.logout-btn:hover {
+  background-color: #34495e;
 }

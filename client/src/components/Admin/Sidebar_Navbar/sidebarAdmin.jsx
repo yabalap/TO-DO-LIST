@@ -5,6 +5,8 @@ import { FaFileUpload } from "react-icons/fa";
 import { PiMonitor } from "react-icons/pi";
 import { MdAddAlert } from "react-icons/md";
 import { AiOutlineAudit } from "react-icons/ai";
+import { FaUserCircle } from "react-icons/fa";
+import { IoMdLogOut } from "react-icons/io";
 import { Link } from 'react-router-dom';
 import '../../../css/Admin/sidebar.css';
 
@@ -39,6 +41,12 @@ const SidebarAdmin = () => {
     }
   ];
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userRole');
+    window.location.href = '/login';
+  };
+
   return (
     <div className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
       <div className="sidebar-header">
@@ -62,6 +70,16 @@ const SidebarAdmin = () => {
           </Link>
         ))}
       </nav>
+      <div className="sidebar-footer">
+        <Link to="/admin/profile" className="nav-item">
+          <span className="icon"><FaUserCircle /></span>
+          <span className={isCollapsed ? 'hidden' : ''}>Profile</span>
+        </Link>
+        <button onClick={handleLogout} className="nav-item logout-btn">
+          <span className="icon"><IoMdLogOut /></span>
+          <span className={isCollapsed ? 'hidden' : ''}>Logout</span>
+        </button>
+      </div>
     </div>
   );
 };
