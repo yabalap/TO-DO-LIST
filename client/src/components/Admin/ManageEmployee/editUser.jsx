@@ -23,7 +23,7 @@ const EditUser = () => {
 
   const fetchEmployeeData = async () => {
     try {
-      const response = await fetch(`http://localhost/TO-DO-LIST/server/employee/get_employee.php?id=${id}`, {
+      const response = await fetch(`http://localhost/TO-DO-LIST/server/employee/get_employees.php?id=${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
