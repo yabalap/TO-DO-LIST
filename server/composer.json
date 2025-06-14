@@ -1,0 +1,19 @@
+{
+    "name": "angelopalabay/to-do-list",
+    "description": "For monitoring renewal and expiration of documents",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Angelopalabay\\ToDoList\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "yabalap",
+            "email": "gelpalabay05@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
