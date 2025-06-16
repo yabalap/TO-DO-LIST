@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   TextField,
@@ -24,6 +25,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditIcon from '@mui/icons-material/Edit';
 
 const MonitorEmployee = () => {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
   const [data, setData] = useState([]);
@@ -101,6 +103,10 @@ const MonitorEmployee = () => {
       statusFilter === 'all' || item.status?.toLowerCase() === statusFilter;
     return matchesSearch && matchesStatus;
   });
+
+  const handleEdit = (id) => {
+    navigate(`/employee/monitoring/edit/${id}`);
+  };
 
   if (loading) {
     return (
@@ -201,7 +207,11 @@ const MonitorEmployee = () => {
                     <IconButton size="small" color="primary">
                       <VisibilityIcon />
                     </IconButton>
-                    <IconButton size="small" color="secondary">
+                    <IconButton 
+                      size="small" 
+                      color="secondary"
+                      onClick={() => handleEdit(row.id)}
+                    >
                       <EditIcon />
                     </IconButton>
                   </TableCell>
