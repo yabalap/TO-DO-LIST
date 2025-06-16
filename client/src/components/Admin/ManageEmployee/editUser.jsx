@@ -26,7 +26,7 @@ const EditUser = () => {
       const response = await fetch(`http://localhost/TO-DO-LIST/server/employee/get_employees.php?id=${id}`, {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
         credentials: 'include'
       });
@@ -67,10 +67,12 @@ const EditUser = () => {
       const response = await fetch('http://localhost/TO-DO-LIST/server/employee/update_employee.php', {
         method: 'POST',
         headers: {
+          'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ ...formData, id }),
-        credentials: 'include'
+        credentials: 'include',
+        mode: 'cors'
       });
 
       const data = await response.json();
