@@ -74,6 +74,24 @@ const MonitorEmployee = () => {
     }
   };
 
+  const getProgressColor = (progress) => {
+    switch (progress?.toLowerCase()) {
+      case 'approved':
+        return 'success';
+      case 'rejected':
+        return 'error';
+      case 'pending':
+        return 'warning';
+      default:
+        return 'default';
+    }
+  };
+
+  const formatProgress = (progress) => {
+    if (!progress) return 'Pending';
+    return progress.charAt(0).toUpperCase() + progress.slice(1);
+  };
+
   const filteredData = data.filter((item) => {
     const matchesSearch = Object.values(item)
       .join(' ')
@@ -144,13 +162,14 @@ const MonitorEmployee = () => {
               <TableCell>Validity Date</TableCell>
               <TableCell>Due Date</TableCell>
               <TableCell>Status</TableCell>
+              <TableCell>Progress</TableCell>
               <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {filteredData.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={9} align="center">
+                <TableCell colSpan={10} align="center">
                   No records found
                 </TableCell>
               </TableRow>
@@ -168,6 +187,13 @@ const MonitorEmployee = () => {
                     <Chip
                       label={row.status}
                       color={getStatusColor(row.status)}
+                      size="small"
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <Chip
+                      label={formatProgress(row.progress)}
+                      color={getProgressColor(row.progress)}
                       size="small"
                     />
                   </TableCell>
