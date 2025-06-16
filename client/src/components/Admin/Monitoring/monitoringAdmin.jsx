@@ -96,7 +96,7 @@ const MonitoringAdmin = () => {
   };
 
   const handleEdit = (id) => {
-    navigate(`/admin/monitoring/edit/${id}`);
+    navigate(`/admin/monitoring/view/${id}`);
   };
 
   const handleView = (id) => {
@@ -136,7 +136,7 @@ const MonitoringAdmin = () => {
       </Typography>
       
       <Grid container spacing={2} sx={{ mb: 3 }}>
-        <Grid item xs={12} md={6}>
+        <Grid xs={12} md={6}>
           <TextField
             fullWidth
             variant="outlined"
@@ -148,7 +148,7 @@ const MonitoringAdmin = () => {
             }}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid xs={12} md={6}>
           <FormControl fullWidth>
             <InputLabel>Status Filter</InputLabel>
             <Select

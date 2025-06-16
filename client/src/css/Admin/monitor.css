@@ -1,0 +1,85 @@
+/* View Monitor Styles */
+.view-monitor-container {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.back-button {
+  margin-bottom: 1.5rem;
+}
+
+.monitor-paper {
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.monitor-title {
+  margin-bottom: 2rem;
+  color: #1976d2;
+  font-weight: bold;
+}
+
+.monitor-card {
+  margin-bottom: 1.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+}
+
+.monitor-card-content {
+  padding: 1.5rem;
+}
+
+.section-title {
+  margin-bottom: 1.5rem;
+  color: #1976d2;
+  font-weight: 600;
+}
+
+.field-container {
+  margin-bottom: 1.5rem;
+}
+
+.field-label {
+  color: #666;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.field-value {
+  font-size: 1rem;
+  color: #333;
+}
+
+.monitor-divider {
+  margin: 2rem 0;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.action-button {
+  min-width: 120px;
+  padding: 0.75rem 1.5rem;
+}
+
+/* Loading and Error States */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.error-container {
+  padding: 1.5rem;
+}
+
+/* Success Alert */
+.success-alert {
+  margin-bottom: 2rem;
+}
