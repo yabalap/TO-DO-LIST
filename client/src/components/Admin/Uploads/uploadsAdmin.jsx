@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaSearch, FaUpload, FaTimes } from 'react-icons/fa';
 import Select from 'react-select';
 import '../../../css/Admin/uploads.css';
 
 const UploadsAdmin = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [files, setFiles] = useState([]); // This will be populated from your backend
+  const [files, setFiles] = useState([]);
   const [showUploadPopup, setShowUploadPopup] = useState(false);
   const [selectedDirectory, setSelectedDirectory] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const options = [
     { value: 'pcab_documents', label: 'PCAB' },
@@ -54,6 +56,38 @@ const UploadsAdmin = () => {
     })
   };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('http://localhost/TO-DO-LIST/server/uploads/fetch_uploads.php', {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Accept': 'application/json',
+        }
+      });
+
+      const result = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to fetch data');
+      }
+
+      console.log('Fetched data:', result.data); // Log the fetched data
+      setFiles(result.data);
+      setError(null);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
@@ -68,12 +102,10 @@ const UploadsAdmin = () => {
   const handleUpload = async () => {
     if (selectedFile && selectedDirectory) {
       try {
-        // Create form data to send to the server
         const formData = new FormData();
         formData.append('file', selectedFile);
         formData.append('table', selectedDirectory.value);
 
-        // Send the file to the server
         const response = await fetch('http://localhost/TO-DO-LIST/server/uploads/upload_handler.php', {
           method: 'POST',
           body: formData,
@@ -98,22 +130,31 @@ const UploadsAdmin = () => {
           throw new Error(result.error || 'Upload failed');
         }
 
-        // Show success message
         alert(result.message);
         
-        // Reset form and close popup
         setSelectedFile(null);
         setSelectedDirectory(null);
         setShowUploadPopup(false);
         
-        // Refresh the files list (you'll need to implement this)
-        // fetchFiles();
+        // Refresh the data after successful upload
+        fetchData();
       } catch (error) {
         console.error('Upload error:', error);
         alert(error.message || 'An error occurred during upload');
       }
     }
   };
+
+  // Filter files based on search term
+  const filteredFiles = files.filter(file => {
+    const searchLower = searchTerm.toLowerCase();
+    return (
+      (file.type && file.type.toLowerCase().includes(searchLower)) ||
+      (file.department && file.department.toLowerCase().includes(searchLower)) ||
+      (file.description && file.description.toLowerCase().includes(searchLower)) ||
+      (file.personAccountable && file.personAccountable.toLowerCase().includes(searchLower))
+    );
+  });
 
   return (
     <div className="uploads-container">
@@ -189,38 +230,46 @@ const UploadsAdmin = () => {
       )}
 
       <div className="table-container">
-        <table className="uploads-table">
-          <thead>
-            <tr>
-              <th>Type</th>
-              <th>Department</th>
-              <th>Description</th>
-              <th>Person Accountable</th>
-              <th>Renewal Frequency</th>
-              <th>Validity Date</th>
-              <th>Due Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {files.length === 0 ? (
+        {loading ? (
+          <div className="loading">Loading...</div>
+        ) : error ? (
+          <div className="error">{error}</div>
+        ) : (
+          <table className="uploads-table">
+            <thead>
               <tr>
-                <td colSpan="7" className="no-files">No files uploaded yet</td>
+                <th>Type</th>
+                <th>Department</th>
+                <th>Description</th>
+                <th>Person Accountable</th>
+                <th>Renewal Frequency</th>
+                <th>Validity Date</th>
+                <th>Due Date</th>
+                <th>Table</th>
               </tr>
-            ) : (
-              files.map((file, index) => (
-                <tr key={index}>
-                  <td>{file.type}</td>
-                  <td>{file.department}</td>
-                  <td>{file.description}</td>
-                  <td>{file.personAccountable}</td>
-                  <td>{file.renewalFrequency}</td>
-                  <td>{file.validityDate}</td>
-                  <td>{file.dueDate}</td>
+            </thead>
+            <tbody>
+              {filteredFiles.length === 0 ? (
+                <tr>
+                  <td colSpan="8" className="no-files">No files found</td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+              ) : (
+                filteredFiles.map((file, index) => (
+                  <tr key={index}>
+                    <td>{file.type}</td>
+                    <td>{file.department}</td>
+                    <td>{file.description}</td>
+                    <td>{file.personAccountable}</td>
+                    <td>{file.renewal_frequency}</td>
+                    <td>{file.validity_date}</td>
+                    <td>{file.due_date}</td>
+                    <td>{file.table_name}</td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );
