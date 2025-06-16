@@ -65,21 +65,53 @@ const UploadsAdmin = () => {
     }
   };
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     if (selectedFile && selectedDirectory) {
-      // Create form data to send to the server
-      const formData = new FormData();
-      formData.append('file', selectedFile);
-      formData.append('table', selectedDirectory.value); // This will be the exact table name from the database
+      try {
+        // Create form data to send to the server
+        const formData = new FormData();
+        formData.append('file', selectedFile);
+        formData.append('table', selectedDirectory.value);
 
-      // Here you'll add the logic to upload the file to your backend
-      console.log('File to upload:', selectedFile);
-      console.log('Selected table:', selectedDirectory.value);
-      
-      // Reset form and close popup
-      setSelectedFile(null);
-      setSelectedDirectory(null);
-      setShowUploadPopup(false);
+        // Send the file to the server
+        const response = await fetch('http://localhost/TO-DO-LIST/server/uploads/upload_handler.php', {
+          method: 'POST',
+          body: formData,
+          mode: 'cors',
+          credentials: 'include',
+          headers: {
+            'Accept': 'application/json',
+          }
+        });
+
+        let result;
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          result = await response.json();
+        } else {
+          const text = await response.text();
+          console.error('Non-JSON response:', text);
+          throw new Error('Server returned invalid response format');
+        }
+
+        if (!response.ok) {
+          throw new Error(result.error || 'Upload failed');
+        }
+
+        // Show success message
+        alert(result.message);
+        
+        // Reset form and close popup
+        setSelectedFile(null);
+        setSelectedDirectory(null);
+        setShowUploadPopup(false);
+        
+        // Refresh the files list (you'll need to implement this)
+        // fetchFiles();
+      } catch (error) {
+        console.error('Upload error:', error);
+        alert(error.message || 'An error occurred during upload');
+      }
     }
   };
 
