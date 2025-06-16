@@ -192,29 +192,30 @@ const UploadsAdmin = () => {
         <table className="uploads-table">
           <thead>
             <tr>
-              <th>File Name</th>
-              <th>Upload Date</th>
-              <th>Size</th>
-              <th>Status</th>
-              <th>Actions</th>
+              <th>Type</th>
+              <th>Department</th>
+              <th>Description</th>
+              <th>Person Accountable</th>
+              <th>Renewal Frequency</th>
+              <th>Validity Date</th>
+              <th>Due Date</th>
             </tr>
           </thead>
           <tbody>
             {files.length === 0 ? (
               <tr>
-                <td colSpan="5" className="no-files">No files uploaded yet</td>
+                <td colSpan="7" className="no-files">No files uploaded yet</td>
               </tr>
             ) : (
               files.map((file, index) => (
                 <tr key={index}>
-                  <td>{file.name}</td>
-                  <td>{file.uploadDate}</td>
-                  <td>{file.size}</td>
-                  <td>{file.status}</td>
-                  <td>
-                    <button className="action-button">Download</button>
-                    <button className="action-button delete">Delete</button>
-                  </td>
+                  <td>{file.type}</td>
+                  <td>{file.department}</td>
+                  <td>{file.description}</td>
+                  <td>{file.personAccountable}</td>
+                  <td>{file.renewalFrequency}</td>
+                  <td>{file.validityDate}</td>
+                  <td>{file.dueDate}</td>
                 </tr>
               ))
             )}
