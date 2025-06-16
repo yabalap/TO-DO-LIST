@@ -19,20 +19,20 @@ const ManageEmployee = () => {
       const response = await fetch('http://localhost/TO-DO-LIST/server/employee/get_employees.php', {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
         credentials: 'include',
       });
 
-      const data = await response.json();
-
-      if (response.ok) {
-        setEmployees(data.employees);
-      } else {
-        setError(data.message || 'Failed to fetch employees');
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
       }
+
+      const data = await response.json();
+      setEmployees(data.employees || []);
     } catch (err) {
-      setError('An error occurred while fetching employees');
+      setError(err.message || 'An error occurred while fetching employees');
       console.error('Error fetching employees:', err);
     } finally {
       setLoading(false);
