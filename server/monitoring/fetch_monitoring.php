@@ -52,7 +52,8 @@ try {
                     due_date as dueDate,
                     expiration_date as expirationDate,
                     uploaded_at as uploadedDate,
-                    updated_at as updatedDate
+                    updated_at as updatedDate,
+                    progress
                   FROM $table";
         $stmt = $db->prepare($query);
         $stmt->execute();
