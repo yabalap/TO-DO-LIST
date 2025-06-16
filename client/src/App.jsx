@@ -11,6 +11,7 @@ import EditUser from './components/Admin/ManageEmployee/editUser';
 import UploadsEmployee from './components/Employee/Uploads/uploadsEmployee';
 import MonitorEmployee from './components/Employee/Monitoring/monitorEmployee';
 import EditMonitor from './components/Employee/Monitoring/editMonitor';
+import MonitoringAdmin from './components/Admin/Monitoring/monitoringAdmin';
 
 // Protected Route Component
 const ProtectedRoute = ({ children, allowedRoles }) => {
@@ -79,7 +80,9 @@ function App() {
           <Route path="manage-employee" element={<ManageEmployee />} />
           <Route path="add-employee" element={<AddUser />} />
           <Route path="edit-employee/:id" element={<EditUser />} />
-          <Route path="monitoring" element={<div>Monitoring Page</div>} />
+          <Route path="monitoring" element={<MonitoringAdmin />} />
+          <Route path="monitoring/edit/:id" element={<div>Edit Monitoring Page</div>} />
+          <Route path="monitoring/view/:id" element={<div>View Monitoring Page</div>} />
           <Route path="audit-logs" element={<div>Audit Logs Page</div>} />
           <Route index element={<Navigate to="dashboard" replace />} />
         </Route>
