@@ -19,6 +19,7 @@ import {
   Grid,
   CircularProgress,
   Alert,
+  Typography,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -39,7 +40,7 @@ const MonitoringAdmin = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost/TO-DO-LIST/server/monitoring/fetch_monitoring.php', {
+      const response = await fetch('http://localhost/TO-DO-LIST/server/monitoring/fetch_admin_monitoring.php', {
         method: 'GET',
         credentials: 'include',
         headers: {
@@ -130,6 +131,10 @@ const MonitoringAdmin = () => {
 
   return (
     <Box sx={{ p: 3 }}>
+      <Typography variant="h4" sx={{ mb: 3 }}>
+        Completed Monitoring Items
+      </Typography>
+      
       <Grid container spacing={2} sx={{ mb: 3 }}>
         <Grid item xs={12} md={6}>
           <TextField
@@ -172,15 +177,14 @@ const MonitoringAdmin = () => {
               <TableCell>Validity Date</TableCell>
               <TableCell>Due Date</TableCell>
               <TableCell>Status</TableCell>
-              <TableCell>Progress</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {filteredData.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={10} align="center">
-                  No records found
+                <TableCell colSpan={9} align="center">
+                  No completed records found
                 </TableCell>
               </TableRow>
             ) : (
@@ -197,13 +201,6 @@ const MonitoringAdmin = () => {
                     <Chip
                       label={row.status}
                       color={getStatusColor(row.status)}
-                      size="small"
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <Chip
-                      label={formatProgress(row.progress)}
-                      color={getProgressColor(row.progress)}
                       size="small"
                     />
                   </TableCell>
