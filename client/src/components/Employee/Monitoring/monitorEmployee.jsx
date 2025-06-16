@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   TextField,
@@ -16,6 +16,8 @@ import {
   IconButton,
   Chip,
   Grid,
+  CircularProgress,
+  Alert,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -24,26 +26,46 @@ import EditIcon from '@mui/icons-material/Edit';
 const MonitorEmployee = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Sample data - replace with actual data from your backend
-  const [data] = useState([
-    {
-      id: 1,
-      type: 'Leave Request',
-      table: 'Leave',
-      description: 'Annual leave request',
-      uploadedDate: '2024-03-15',
-      updatedDate: '2024-03-16',
-      status: 'pending',
-    },
-    // Add more sample data as needed
-  ]);
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('http://localhost/TO-DO-LIST/server/monitoring/fetch_monitoring.php', {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Accept': 'application/json',
+        }
+      });
+
+      const result = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to fetch data');
+      }
+
+      setData(result.data);
+      setError(null);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const getStatusColor = (status) => {
-    switch (status.toLowerCase()) {
-      case 'approved':
+    switch (status?.toLowerCase()) {
+      case 'active':
         return 'success';
-      case 'rejected':
+      case 'expired':
         return 'error';
       case 'pending':
         return 'warning';
@@ -58,9 +80,25 @@ const MonitorEmployee = () => {
       .toLowerCase()
       .includes(searchQuery.toLowerCase());
     const matchesStatus =
-      statusFilter === 'all' || item.status.toLowerCase() === statusFilter;
+      statusFilter === 'all' || item.status?.toLowerCase() === statusFilter;
     return matchesSearch && matchesStatus;
   });
+
+  if (loading) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box sx={{ p: 3 }}>
+        <Alert severity="error">{error}</Alert>
+      </Box>
+    );
+  }
 
   return (
     <Box sx={{ p: 3 }}>
@@ -86,9 +124,9 @@ const MonitorEmployee = () => {
               onChange={(e) => setStatusFilter(e.target.value)}
             >
               <MenuItem value="all">All</MenuItem>
+              <MenuItem value="active">Active</MenuItem>
               <MenuItem value="pending">Pending</MenuItem>
-              <MenuItem value="approved">Approved</MenuItem>
-              <MenuItem value="rejected">Rejected</MenuItem>
+              <MenuItem value="expired">Expired</MenuItem>
             </Select>
           </FormControl>
         </Grid>
@@ -99,39 +137,51 @@ const MonitorEmployee = () => {
           <TableHead>
             <TableRow>
               <TableCell>Type</TableCell>
-              <TableCell>Table</TableCell>
+              <TableCell>Department</TableCell>
               <TableCell>Description</TableCell>
-              <TableCell>Uploaded Date</TableCell>
-              <TableCell>Updated Date</TableCell>
+              <TableCell>Person Accountable</TableCell>
+              <TableCell>Renewal Frequency</TableCell>
+              <TableCell>Validity Date</TableCell>
+              <TableCell>Due Date</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredData.map((row) => (
-              <TableRow key={row.id}>
-                <TableCell>{row.type}</TableCell>
-                <TableCell>{row.table}</TableCell>
-                <TableCell>{row.description}</TableCell>
-                <TableCell>{row.uploadedDate}</TableCell>
-                <TableCell>{row.updatedDate}</TableCell>
-                <TableCell>
-                  <Chip
-                    label={row.status}
-                    color={getStatusColor(row.status)}
-                    size="small"
-                  />
-                </TableCell>
-                <TableCell>
-                  <IconButton size="small" color="primary">
-                    <VisibilityIcon />
-                  </IconButton>
-                  <IconButton size="small" color="secondary">
-                    <EditIcon />
-                  </IconButton>
+            {filteredData.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={9} align="center">
+                  No records found
                 </TableCell>
               </TableRow>
-            ))}
+            ) : (
+              filteredData.map((row) => (
+                <TableRow key={`${row.table_name}-${row.id}`}>
+                  <TableCell>{row.type}</TableCell>
+                  <TableCell>{row.department}</TableCell>
+                  <TableCell>{row.description}</TableCell>
+                  <TableCell>{row.personAccountable}</TableCell>
+                  <TableCell>{row.renewalFrequency}</TableCell>
+                  <TableCell>{row.validityDate}</TableCell>
+                  <TableCell>{row.dueDate}</TableCell>
+                  <TableCell>
+                    <Chip
+                      label={row.status}
+                      color={getStatusColor(row.status)}
+                      size="small"
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <IconButton size="small" color="primary">
+                      <VisibilityIcon />
+                    </IconButton>
+                    <IconButton size="small" color="secondary">
+                      <EditIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </TableContainer>
