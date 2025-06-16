@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { MdSpaceDashboard } from "react-icons/md";
 import { FaUserFriends } from "react-icons/fa";
-import { FaFileUpload } from "react-icons/fa";
 import { PiMonitor } from "react-icons/pi";
 import { MdAddAlert } from "react-icons/md";
 import { AiOutlineAudit } from "react-icons/ai";
@@ -23,11 +22,6 @@ const SidebarAdmin = () => {
       title: 'Manage Employee',
       icon: <FaUserFriends />,
       path: '/admin/manage-employee'
-    },
-    {
-      title: 'Upload',
-      icon: <FaFileUpload />,
-      path: '/admin/upload'
     },
     {
       title: 'Monitoring',

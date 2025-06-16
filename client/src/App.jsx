@@ -8,7 +8,6 @@ import DashboardEmployee from './components/Employee/EmployeeDashboard/dashboard
 import ManageEmployee from './components/Admin/ManageEmployee/manageEmployee';
 import AddUser from './components/Admin/ManageEmployee/addUser';
 import EditUser from './components/Admin/ManageEmployee/editUser';
-import UploadsAdmin from './components/Admin/Uploads/uploadsAdmin';
 import UploadsEmployee from './components/Employee/Uploads/uploadsEmployee';
 import MonitorEmployee from './components/Employee/Monitoring/monitorEmployee';
 import EditMonitor from './components/Employee/Monitoring/editMonitor';
@@ -80,7 +79,6 @@ function App() {
           <Route path="manage-employee" element={<ManageEmployee />} />
           <Route path="add-employee" element={<AddUser />} />
           <Route path="edit-employee/:id" element={<EditUser />} />
-          <Route path="upload" element={<UploadsAdmin />} />
           <Route path="monitoring" element={<div>Monitoring Page</div>} />
           <Route path="audit-logs" element={<div>Audit Logs Page</div>} />
           <Route index element={<Navigate to="dashboard" replace />} />
