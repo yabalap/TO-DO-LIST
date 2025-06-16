@@ -11,23 +11,23 @@ const UploadsAdmin = () => {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const options = [
-    { value: 'pcab', label: 'PCAB' },
-    { value: 'iso-certifying-body', label: 'ISO-Certifying Body' },
-    { value: 'dti-sec-cda', label: 'DTI / SEC / CDA' },
-    { value: 'bir', label: 'BIR' },
-    { value: 'lgu', label: 'LGU' },
-    { value: 'sec', label: 'SEC' },
-    { value: 'sss', label: 'SSS' },
-    { value: 'philhealth', label: 'PhilHealth' },
-    { value: 'pag-ibig-fund', label: 'Pag-IBIG Fund' },
-    { value: 'dole-accredited-training-centers', label: 'DOLE-Accredited Training Centers' },
-    { value: 'nbi', label: 'NBI' },
-    { value: 'bir-accredited-cpa', label: 'BIR / Accredited CPA' },
-    { value: 'company-appraiser-banks', label: 'Company / Appraiser / Banks' },
-    { value: 'bank', label: 'Bank' },
-    { value: 'prc', label: 'PRC' },
-    { value: 'dole-accredited-trainers', label: 'DOLE / Accredited Trainers' },
-    { value: 'company-lto-suppliers', label: 'Company / LTO / Suppliers' }
+    { value: 'pcab_documents', label: 'PCAB' },
+    { value: 'iso_certifying_body_documents', label: 'ISO-Certifying Body' },
+    { value: 'dti_sec_cda_documents', label: 'DTI / SEC / CDA' },
+    { value: 'bir_documents', label: 'BIR Documents' },
+    { value: 'lgu_documents', label: 'LGU' },
+    { value: 'sec_documents', label: 'SEC' },
+    { value: 'sss_documents', label: 'SSS' },
+    { value: 'philhealth_documents', label: 'PhilHealth' },
+    { value: 'pag_ibig_fund_documents', label: 'Pag-IBIG Fund' },
+    { value: 'dole_accredited_training_centers_documents', label: 'DOLE-Accredited Training Centers' },
+    { value: 'nbi_documents', label: 'NBI' },
+    { value: 'bir_accredited_cpa_documents', label: 'BIR Accredited CPA' },
+    { value: 'company_appraiser_banks_documents', label: 'Company / Appraiser / Banks' },
+    { value: 'bank_documents', label: 'Bank' },
+    { value: 'prc_documents', label: 'PRC' },
+    { value: 'dole_accredited_trainers_documents', label: 'DOLE / Accredited Trainers' },
+    { value: 'company_lto_suppliers_documents', label: 'Company / LTO / Suppliers' }
   ];
 
   const customStyles = {
@@ -67,9 +67,15 @@ const UploadsAdmin = () => {
 
   const handleUpload = () => {
     if (selectedFile && selectedDirectory) {
+      // Create form data to send to the server
+      const formData = new FormData();
+      formData.append('file', selectedFile);
+      formData.append('table', selectedDirectory.value); // This will be the exact table name from the database
+
       // Here you'll add the logic to upload the file to your backend
       console.log('File to upload:', selectedFile);
-      console.log('Selected directory:', selectedDirectory);
+      console.log('Selected table:', selectedDirectory.value);
+      
       // Reset form and close popup
       setSelectedFile(null);
       setSelectedDirectory(null);
