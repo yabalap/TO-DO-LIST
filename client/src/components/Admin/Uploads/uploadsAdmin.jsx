@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaSearch, FaUpload, FaTimes } from 'react-icons/fa';
+import { FaSearch, FaUpload, FaTimes, FaFilter } from 'react-icons/fa';
 import Select from 'react-select';
 import '../../../css/Admin/uploads.css';
 
@@ -11,6 +11,8 @@ const UploadsAdmin = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedTableFilter, setSelectedTableFilter] = useState(null);
+  const [showFilterPopup, setShowFilterPopup] = useState(false);
 
   const options = [
     { value: 'pcab_documents', label: 'PCAB' },
@@ -145,15 +147,19 @@ const UploadsAdmin = () => {
     }
   };
 
-  // Filter files based on search term
+  // Filter files based on search term and table type
   const filteredFiles = files.filter(file => {
     const searchLower = searchTerm.toLowerCase();
-    return (
+    const matchesSearch = (
       (file.type && file.type.toLowerCase().includes(searchLower)) ||
       (file.department && file.department.toLowerCase().includes(searchLower)) ||
       (file.description && file.description.toLowerCase().includes(searchLower)) ||
       (file.personAccountable && file.personAccountable.toLowerCase().includes(searchLower))
     );
+
+    const matchesTable = !selectedTableFilter || file.table_name === selectedTableFilter.value;
+
+    return matchesSearch && matchesTable;
   });
 
   return (
@@ -170,7 +176,13 @@ const UploadsAdmin = () => {
             className="search-input"
           />
         </div>
-        <div className="upload-button-container">
+        <div className="button-container">
+          <button 
+            className="filter-button"
+            onClick={() => setShowFilterPopup(true)}
+          >
+            <FaFilter /> Filter by Table
+          </button>
           <button 
             className="upload-button"
             onClick={() => setShowUploadPopup(true)}
@@ -179,6 +191,44 @@ const UploadsAdmin = () => {
           </button>
         </div>
       </div>
+
+      {/* Filter Popup */}
+      {showFilterPopup && (
+        <div className="upload-popup-overlay">
+          <div className="upload-popup">
+            <div className="popup-header">
+              <h3>Filter by Table Type</h3>
+              <button 
+                className="close-button"
+                onClick={() => setShowFilterPopup(false)}
+              >
+                <FaTimes />
+              </button>
+            </div>
+            <div className="popup-content">
+              <div className="form-group">
+                <Select
+                  value={selectedTableFilter}
+                  onChange={setSelectedTableFilter}
+                  options={options}
+                  styles={customStyles}
+                  placeholder="Select table type..."
+                  isClearable
+                  isSearchable
+                  className="directory-select"
+                  classNamePrefix="select"
+                />
+              </div>
+              <button
+                className="upload-submit-button"
+                onClick={() => setShowFilterPopup(false)}
+              >
+                Apply Filter
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Upload Popup */}
       {showUploadPopup && (
