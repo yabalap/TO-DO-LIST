@@ -64,6 +64,7 @@ try {
     foreach ($tables as $table) {
         $query = "UPDATE $table 
                  SET expiration_date = :expiration_date,
+                     process_days = :process_days,
                      link_proof = :link_proof,
                      special_description = :special_description,
                      progress = :progress,
@@ -75,6 +76,7 @@ try {
         
         $stmt = $db->prepare($query);
         $stmt->bindParam(':expiration_date', $data['expiration_date']);
+        $stmt->bindParam(':process_days', $data['process_days']);
         $stmt->bindParam(':link_proof', $data['link_proof']);
         $stmt->bindParam(':special_description', $data['special_description']);
         $stmt->bindParam(':progress', $data['progress']);

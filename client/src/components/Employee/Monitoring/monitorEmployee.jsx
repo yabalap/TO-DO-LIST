@@ -197,6 +197,7 @@ const MonitorEmployee = () => {
               <TableCell>Renewal Frequency</TableCell>
               <TableCell>Validity Date</TableCell>
               <TableCell>Due Date</TableCell>
+              <TableCell>Process Days</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>Progress</TableCell>
               <TableCell>Action</TableCell>
@@ -219,6 +220,7 @@ const MonitorEmployee = () => {
                   <TableCell>{row.renewalFrequency}</TableCell>
                   <TableCell>{row.validityDate}</TableCell>
                   <TableCell>{row.dueDate}</TableCell>
+                  <TableCell>{row.process_days || '-'}</TableCell>
                   <TableCell>
                     <Chip
                       label={row.status}

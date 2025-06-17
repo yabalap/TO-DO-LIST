@@ -54,6 +54,7 @@ try {
                     validity_date as validityDate,
                     due_date as dueDate,
                     expiration_date as expirationDate,
+                    process_days,
                     uploaded_at as uploadedDate,
                     updated_at as updatedDate,
                     progress

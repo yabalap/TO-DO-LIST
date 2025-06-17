@@ -7,6 +7,7 @@ const EditMonitor = () => {
   const { id } = useParams();
   const [formData, setFormData] = useState({
     expiration_date: '',
+    process_days: '',
     link_proof: '',
     special_description: '',
     progress: 'Completed'
@@ -49,6 +50,7 @@ const EditMonitor = () => {
           setFormData(prevState => ({
             ...prevState,
             expiration_date: data.data.expirationDate || '',
+            process_days: data.data.process_days || '',
             link_proof: data.data.link_proof || '',
             special_description: data.data.special_description || '',
             progress: data.data.progress || 'Completed',
@@ -186,6 +188,23 @@ const EditMonitor = () => {
                 Formatted Date: {formData.expiration_date}
               </div>
             )}
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="process_days" className="form-label">
+              Process Days
+            </label>
+            <input
+              type="number"
+              id="process_days"
+              name="process_days"
+              value={formData.process_days}
+              onChange={handleChange}
+              className="form-input"
+              placeholder="Enter number of process days"
+              min="0"
+              required
+            />
           </div>
 
           <div className="form-group">
