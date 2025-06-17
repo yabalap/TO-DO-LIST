@@ -2,10 +2,8 @@
 // Set content type
 header("Content-Type: application/json; charset=UTF-8");
 
-require_once '../config/cors.php';
 require_once '../config/database.php';
 require_once '../config/config.php';
-require_once '../config/session.php';
 require_once '../vendor/autoload.php';
 
 use \Firebase\JWT\JWT;
@@ -57,14 +55,6 @@ try {
     );
 
     $jwt = JWT::encode($token, JWT_SECRET_KEY, 'HS256');
-
-    // Set session data
-    $userData = [
-        'id' => $row['id'],
-        'username' => $row['username'],
-        'role' => $row['role']
-    ];
-    setSessionData($userData);
 
     // Return success response
     echo json_encode(array(
