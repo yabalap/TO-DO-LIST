@@ -80,6 +80,13 @@ const AuditEmployee = () => {
     }
   };
 
+  const getProgressColor = (progress) => {
+    if (progress === 'completed') return 'success';
+    if (progress === 'in progress') return 'info';
+    if (progress === 'not started') return 'default';
+    return 'error';
+  };
+
   const toggleRow = (id) => {
     setExpandedRows(prev => ({
       ...prev,
@@ -103,13 +110,39 @@ const AuditEmployee = () => {
             {Object.entries(newData).map(([key, value]) => {
               const oldValue = oldData[key];
               if (oldValue !== value) {
+                if (key === 'status' || key === 'progress') {
+                  return (
+                    <Box key={key} sx={{ mt: 1 }}>
+                      <Typography variant="body2">
+                        <strong>{key.replace(/_/g, ' ').toUpperCase()}:</strong>
+                      </Typography>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                        <Chip
+                          label={oldValue || 'N/A'}
+                          color={key === 'status' ? getActionColor(oldValue) : getProgressColor(oldValue)}
+                          size="small"
+                          variant="outlined"
+                        />
+                        <Typography variant="body2" color="text.secondary">
+                          →
+                        </Typography>
+                        <Chip
+                          label={value}
+                          color={key === 'status' ? getActionColor(value) : getProgressColor(value)}
+                          size="small"
+                        />
+                      </Box>
+                    </Box>
+                  );
+                }
+                
                 return (
                   <Box key={key} sx={{ mt: 1 }}>
                     <Typography variant="body2">
                       <strong>{key.replace(/_/g, ' ').toUpperCase()}:</strong>
                     </Typography>
                     <Typography variant="body2" color="error">
-                      Old: {oldValue}
+                      Old: {oldValue || 'N/A'}
                     </Typography>
                     <Typography variant="body2" color="success.main">
                       New: {value}

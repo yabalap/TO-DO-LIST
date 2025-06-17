@@ -24,7 +24,8 @@ try {
     }
 
     // Prepare query
-    $query = "SELECT u.id, u.username, u.password, u.role, u.created_at, u.updated_at, e.department, e.name 
+    $query = "SELECT u.id, u.username, u.password, u.role, u.created_at, u.updated_at, 
+                     e.department, e.name, e.id as employee_id
               FROM users u 
               LEFT JOIN employee e ON u.username = e.username 
               WHERE u.username = ?";
@@ -39,6 +40,35 @@ try {
     
     if (!password_verify($data->password, $row['password'])) {
         throw new Exception("Invalid password");
+    }
+
+    // If employee record doesn't exist, create it
+    if (!$row['name'] || !$row['department']) {
+        $updateQuery = "UPDATE employee SET 
+                       name = CASE WHEN name IS NULL THEN ? ELSE name END,
+                       department = CASE WHEN department IS NULL THEN ? ELSE department END
+                       WHERE username = ?";
+        $updateStmt = $db->prepare($updateQuery);
+        $updateStmt->execute([
+            $data->username, // Use username as name if null
+            'Admin', // Default department for admin
+            $data->username
+        ]);
+
+        // If no record was updated, insert a new one
+        if ($updateStmt->rowCount() === 0) {
+            $insertQuery = "INSERT INTO employee (name, department, username) VALUES (?, ?, ?)";
+            $insertStmt = $db->prepare($insertQuery);
+            $insertStmt->execute([
+                $data->username, // Use username as name
+                'Admin', // Default department for admin
+                $data->username
+            ]);
+        }
+
+        // Fetch the updated record
+        $stmt->execute([$data->username]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     // Generate JWT token
@@ -60,6 +90,16 @@ try {
     );
 
     $jwt = JWT::encode($token, JWT_SECRET_KEY, 'HS256');
+
+    // Start session and store user information
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    
+    $_SESSION['name'] = $row['name'];
+    $_SESSION['department'] = $row['department'];
+    $_SESSION['role'] = $row['role'];
+    $_SESSION['username'] = $row['username'];
 
     // Return success response
     echo json_encode(array(

@@ -43,7 +43,9 @@ try {
 
     // Get user department from session
     $userDepartment = $_SESSION['department'] ?? null;
+    $userRole = $_SESSION['role'] ?? null;
     error_log("User department: " . ($userDepartment ?? 'null'));
+    error_log("User role: " . ($userRole ?? 'null'));
 
     // Check if audit_logs table exists
     $tableCheck = $pdo->query("SHOW TABLES LIKE 'audit_logs'");
@@ -56,6 +58,7 @@ try {
                 al.id,
                 al.timestamp,
                 al.user_name,
+                al.department,
                 al.action,
                 al.table_name,
                 al.record_id,
@@ -64,9 +67,9 @@ try {
               FROM audit_logs al
               WHERE 1=1";
 
-    // Add department filter if user has a department
-    if ($userDepartment) {
-        $query .= " AND al.department = :department";
+    // Add department filter only for non-admin users
+    if ($userDepartment && strtolower($userRole) !== 'admin') {
+        $query .= " AND (al.department = :department OR al.department = 'Admin')";
     }
 
     // Order by timestamp descending
@@ -78,7 +81,7 @@ try {
     $stmt = $pdo->prepare($query);
 
     // Bind department parameter if needed
-    if ($userDepartment) {
+    if ($userDepartment && strtolower($userRole) !== 'admin') {
         $stmt->bindParam(':department', $userDepartment);
     }
 

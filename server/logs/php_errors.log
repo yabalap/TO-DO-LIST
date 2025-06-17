@@ -11014,3 +11014,854 @@
 [17-Jun-2025 13:31:03 Europe/Berlin] 2025-06-17 13:31:03 - Checking table - Data: "sss_documents"
 [17-Jun-2025 13:31:03 Europe/Berlin] 2025-06-17 13:31:03 - Update successful in table - Data: "sss_documents"
 [17-Jun-2025 13:31:03 Europe/Berlin] 2025-06-17 13:31:03 - Update successful, sending response
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - Script started
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - Received request body - Data: "{\"id\":\"1\",\"status\":\"rejected\",\"progress\":\"Pending\"}"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - Decoded request data - Data: {
+    "id": "1",
+    "status": "rejected",
+    "progress": "Pending"
+}
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - Attempting database connection
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - Database connection successful
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - Found tables in database - Data: [
+    "audit_logs",
+    "bank_documents",
+    "bir_accredited_cpa_documents",
+    "bir_documents",
+    "company_appraiser_banks_documents",
+    "company_lto_suppliers_documents",
+    "dole_accredited_trainers_documents",
+    "dole_accredited_training_centers_documents",
+    "dti_sec_cda_documents",
+    "employee",
+    "employee_audit_trail",
+    "iso_certifying_body_documents",
+    "lgu_documents",
+    "nbi_documents",
+    "pag_ibig_fund_documents",
+    "pcab_documents",
+    "philhealth_documents",
+    "prc_documents",
+    "sec_documents",
+    "sss_documents",
+    "users"
+]
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - Tables to check - Data: {
+    "0": "bir_documents",
+    "1": "pcab_documents",
+    "2": "iso_certifying_body_documents",
+    "35": "bank_documents",
+    "36": "bir_accredited_cpa_documents",
+    "37": "company_appraiser_banks_documents",
+    "38": "company_lto_suppliers_documents",
+    "39": "dole_accredited_trainers_documents",
+    "40": "dole_accredited_training_centers_documents",
+    "41": "dti_sec_cda_documents",
+    "42": "lgu_documents",
+    "43": "nbi_documents",
+    "44": "pag_ibig_fund_documents",
+    "45": "philhealth_documents",
+    "46": "prc_documents",
+    "47": "sec_documents",
+    "48": "sss_documents"
+}
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - Attempting to update record - Data: {
+    "id": "1",
+    "status": "Rejected",
+    "progress": "Pending"
+}
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - Checking table - Data: "bir_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - No record found in table - Data: "bir_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - Checking table - Data: "pcab_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - No record found in table - Data: "pcab_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - Checking table - Data: "iso_certifying_body_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - No record found in table - Data: "iso_certifying_body_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - Checking table - Data: "bank_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - No record found in table - Data: "bank_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - Checking table - Data: "bir_accredited_cpa_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - No record found in table - Data: "bir_accredited_cpa_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - Checking table - Data: "company_appraiser_banks_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - No record found in table - Data: "company_appraiser_banks_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - Checking table - Data: "company_lto_suppliers_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - No record found in table - Data: "company_lto_suppliers_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - Checking table - Data: "dole_accredited_trainers_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - No record found in table - Data: "dole_accredited_trainers_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - Checking table - Data: "dole_accredited_training_centers_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - No record found in table - Data: "dole_accredited_training_centers_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - Checking table - Data: "dti_sec_cda_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - No record found in table - Data: "dti_sec_cda_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - Checking table - Data: "lgu_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - No record found in table - Data: "lgu_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - Checking table - Data: "nbi_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - No record found in table - Data: "nbi_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - Checking table - Data: "pag_ibig_fund_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - No record found in table - Data: "pag_ibig_fund_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - Checking table - Data: "philhealth_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - No record found in table - Data: "philhealth_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - Checking table - Data: "prc_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - No record found in table - Data: "prc_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - Checking table - Data: "sec_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - No record found in table - Data: "sec_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - Checking table - Data: "sss_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - Update successful in table - Data: "sss_documents"
+[17-Jun-2025 13:35:12 Europe/Berlin] 2025-06-17 13:35:12 - Update successful, sending response
+[17-Jun-2025 13:37:21 Europe/Berlin] 2025-06-17 13:37:21 - Script started
+[17-Jun-2025 13:37:21 Europe/Berlin] 2025-06-17 13:37:21 - Received request body - Data: "{\"id\":\"1\",\"status\":\"approved\"}"
+[17-Jun-2025 13:37:21 Europe/Berlin] 2025-06-17 13:37:21 - Decoded request data - Data: {
+    "id": "1",
+    "status": "approved"
+}
+[17-Jun-2025 19:37:21 Asia/Manila] 2025-06-17 19:37:21 - Attempting database connection
+[17-Jun-2025 19:37:21 Asia/Manila] 2025-06-17 19:37:21 - Database connection successful
+[17-Jun-2025 19:37:21 Asia/Manila] 2025-06-17 19:37:21 - User information missing from session - Data: {
+    "name": null,
+    "department": null
+}
+[17-Jun-2025 13:37:29 Europe/Berlin] 2025-06-17 13:37:29 - Script started
+[17-Jun-2025 13:37:29 Europe/Berlin] 2025-06-17 13:37:29 - Received request body - Data: "{\"id\":\"1\",\"status\":\"approved\"}"
+[17-Jun-2025 13:37:29 Europe/Berlin] 2025-06-17 13:37:29 - Decoded request data - Data: {
+    "id": "1",
+    "status": "approved"
+}
+[17-Jun-2025 19:37:29 Asia/Manila] 2025-06-17 19:37:29 - Attempting database connection
+[17-Jun-2025 19:37:29 Asia/Manila] 2025-06-17 19:37:29 - Database connection successful
+[17-Jun-2025 19:37:29 Asia/Manila] 2025-06-17 19:37:29 - User information missing from session - Data: {
+    "name": null,
+    "department": null
+}
+[17-Jun-2025 13:38:34 Europe/Berlin] 2025-06-17 13:38:34 - Script started
+[17-Jun-2025 13:38:34 Europe/Berlin] 2025-06-17 13:38:34 - Received request body - Data: "{\"id\":\"1\",\"status\":\"approved\",\"userData\":{\"name\":null,\"department\":null,\"username\":\"admin\"}}"
+[17-Jun-2025 13:38:34 Europe/Berlin] 2025-06-17 13:38:34 - Decoded request data - Data: {
+    "id": "1",
+    "status": "approved",
+    "userData": {
+        "name": null,
+        "department": null,
+        "username": "admin"
+    }
+}
+[17-Jun-2025 19:38:34 Asia/Manila] 2025-06-17 19:38:34 - Attempting database connection
+[17-Jun-2025 19:38:34 Asia/Manila] 2025-06-17 19:38:34 - Database connection successful
+[17-Jun-2025 19:38:34 Asia/Manila] 2025-06-17 19:38:34 - User information missing - Data: {
+    "session": {
+        "name": null,
+        "department": null,
+        "role": "admin",
+        "username": "admin"
+    },
+    "request": {
+        "id": "1",
+        "status": "approved",
+        "userData": {
+            "name": null,
+            "department": null,
+            "username": "admin"
+        }
+    }
+}
+[17-Jun-2025 13:38:37 Europe/Berlin] 2025-06-17 13:38:37 - Script started
+[17-Jun-2025 13:38:37 Europe/Berlin] 2025-06-17 13:38:37 - Received request body - Data: "{\"id\":\"1\",\"status\":\"approved\",\"userData\":{\"name\":null,\"department\":null,\"username\":\"admin\"}}"
+[17-Jun-2025 13:38:37 Europe/Berlin] 2025-06-17 13:38:37 - Decoded request data - Data: {
+    "id": "1",
+    "status": "approved",
+    "userData": {
+        "name": null,
+        "department": null,
+        "username": "admin"
+    }
+}
+[17-Jun-2025 19:38:37 Asia/Manila] 2025-06-17 19:38:37 - Attempting database connection
+[17-Jun-2025 19:38:37 Asia/Manila] 2025-06-17 19:38:37 - Database connection successful
+[17-Jun-2025 19:38:37 Asia/Manila] 2025-06-17 19:38:37 - User information missing - Data: {
+    "session": {
+        "name": null,
+        "department": null,
+        "role": "admin",
+        "username": "admin"
+    },
+    "request": {
+        "id": "1",
+        "status": "approved",
+        "userData": {
+            "name": null,
+            "department": null,
+            "username": "admin"
+        }
+    }
+}
+[17-Jun-2025 13:39:47 Europe/Berlin] 2025-06-17 13:39:47 - Script started
+[17-Jun-2025 13:39:47 Europe/Berlin] 2025-06-17 13:39:47 - Received request body - Data: "{\"id\":\"1\",\"status\":\"approved\",\"userData\":{\"name\":null,\"department\":null,\"username\":\"admin\"}}"
+[17-Jun-2025 13:39:47 Europe/Berlin] 2025-06-17 13:39:47 - Decoded request data - Data: {
+    "id": "1",
+    "status": "approved",
+    "userData": {
+        "name": null,
+        "department": null,
+        "username": "admin"
+    }
+}
+[17-Jun-2025 19:39:47 Asia/Manila] Session ID: nfh149n1eeg7mvi05fc3elsl2f
+[17-Jun-2025 19:39:47 Asia/Manila] Session Data: Array
+(
+    [name] => 
+    [department] => 
+    [role] => admin
+    [username] => admin
+)
+
+[17-Jun-2025 19:39:47 Asia/Manila] 2025-06-17 19:39:47 - Attempting database connection
+[17-Jun-2025 19:39:47 Asia/Manila] 2025-06-17 19:39:47 - Database connection successful
+[17-Jun-2025 19:39:47 Asia/Manila] Session ID in update_monitoring_status: nfh149n1eeg7mvi05fc3elsl2f
+[17-Jun-2025 19:39:47 Asia/Manila] Session Data in update_monitoring_status: Array
+(
+    [name] => 
+    [department] => 
+    [role] => admin
+    [username] => admin
+)
+
+[17-Jun-2025 19:39:47 Asia/Manila] Request Data: Array
+(
+    [id] => 1
+    [status] => approved
+    [userData] => Array
+        (
+            [name] => 
+            [department] => 
+            [username] => admin
+        )
+
+)
+
+[17-Jun-2025 19:39:47 Asia/Manila] Using request data and storing in session: , 
+[17-Jun-2025 19:39:47 Asia/Manila] 2025-06-17 19:39:47 - User information missing - Data: {
+    "session": {
+        "name": null,
+        "department": null,
+        "role": "admin",
+        "username": "admin"
+    },
+    "request": {
+        "id": "1",
+        "status": "approved",
+        "userData": {
+            "name": null,
+            "department": null,
+            "username": "admin"
+        }
+    },
+    "headers": {
+        "Host": "localhost",
+        "Connection": "keep-alive",
+        "Content-Length": "92",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0b2RvLWxpc3QtYXBwIiwiYXVkIjoidG9kby1saXN0LXVzZXJzIiwiaWF0IjoxNzUwMTYwMzc5LCJuYmYiOjE3NTAxNjAzNzksImV4cCI6MTc1MDE2Mzk3OSwiZGF0YSI6eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiJ9fQ.saYC5ABXz2XXnkKg2_Zu9JZ9MZtGRGuBqSt4YUb1ZNw",
+        "User-Agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/137.0.0.0 Safari\/537.36",
+        "Accept": "application\/json",
+        "sec-ch-ua": "\"Brave\";v=\"137\", \"Chromium\";v=\"137\", \"Not\/A)Brand\";v=\"24\"",
+        "Content-Type": "application\/json",
+        "sec-ch-ua-mobile": "?0",
+        "Sec-GPC": "1",
+        "Accept-Language": "en-US,en;q=0.7",
+        "Origin": "http:\/\/localhost:5173",
+        "Sec-Fetch-Site": "same-site",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Dest": "empty",
+        "Referer": "http:\/\/localhost:5173\/",
+        "Accept-Encoding": "gzip, deflate, br, zstd",
+        "Cookie": "PHPSESSID=nfh149n1eeg7mvi05fc3elsl2f"
+    }
+}
+[17-Jun-2025 13:40:13 Europe/Berlin] 2025-06-17 13:40:13 - Script started
+[17-Jun-2025 13:40:13 Europe/Berlin] 2025-06-17 13:40:13 - Received request body - Data: "{\"id\":\"1\",\"status\":\"approved\",\"userData\":{\"name\":null,\"department\":null,\"username\":\"admin\"}}"
+[17-Jun-2025 13:40:13 Europe/Berlin] 2025-06-17 13:40:13 - Decoded request data - Data: {
+    "id": "1",
+    "status": "approved",
+    "userData": {
+        "name": null,
+        "department": null,
+        "username": "admin"
+    }
+}
+[17-Jun-2025 19:40:13 Asia/Manila] Session ID: nfh149n1eeg7mvi05fc3elsl2f
+[17-Jun-2025 19:40:13 Asia/Manila] Session Data: Array
+(
+    [name] => 
+    [department] => 
+    [role] => admin
+    [username] => admin
+)
+
+[17-Jun-2025 19:40:13 Asia/Manila] 2025-06-17 19:40:13 - Attempting database connection
+[17-Jun-2025 19:40:13 Asia/Manila] 2025-06-17 19:40:13 - Database connection successful
+[17-Jun-2025 19:40:13 Asia/Manila] Session ID in update_monitoring_status: nfh149n1eeg7mvi05fc3elsl2f
+[17-Jun-2025 19:40:13 Asia/Manila] Session Data in update_monitoring_status: Array
+(
+    [name] => 
+    [department] => 
+    [role] => admin
+    [username] => admin
+)
+
+[17-Jun-2025 19:40:13 Asia/Manila] Request Data: Array
+(
+    [id] => 1
+    [status] => approved
+    [userData] => Array
+        (
+            [name] => 
+            [department] => 
+            [username] => admin
+        )
+
+)
+
+[17-Jun-2025 19:40:13 Asia/Manila] Using request data and storing in session: , 
+[17-Jun-2025 19:40:13 Asia/Manila] 2025-06-17 19:40:13 - User information missing - Data: {
+    "session": {
+        "name": null,
+        "department": null,
+        "role": "admin",
+        "username": "admin"
+    },
+    "request": {
+        "id": "1",
+        "status": "approved",
+        "userData": {
+            "name": null,
+            "department": null,
+            "username": "admin"
+        }
+    },
+    "headers": {
+        "Host": "localhost",
+        "Connection": "keep-alive",
+        "Content-Length": "92",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ0b2RvLWxpc3QtYXBwIiwiYXVkIjoidG9kby1saXN0LXVzZXJzIiwiaWF0IjoxNzUwMTYwNDA2LCJuYmYiOjE3NTAxNjA0MDYsImV4cCI6MTc1MDE2NDAwNiwiZGF0YSI6eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiJ9fQ.h-gRIkhjqjfuaDP1Y8-Yzl2NdyRCqfzMkjdcncQ_kFU",
+        "User-Agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/137.0.0.0 Safari\/537.36",
+        "Accept": "application\/json",
+        "sec-ch-ua": "\"Brave\";v=\"137\", \"Chromium\";v=\"137\", \"Not\/A)Brand\";v=\"24\"",
+        "Content-Type": "application\/json",
+        "sec-ch-ua-mobile": "?0",
+        "Sec-GPC": "1",
+        "Accept-Language": "en-US,en;q=0.7",
+        "Origin": "http:\/\/localhost:5173",
+        "Sec-Fetch-Site": "same-site",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Dest": "empty",
+        "Referer": "http:\/\/localhost:5173\/",
+        "Accept-Encoding": "gzip, deflate, br, zstd",
+        "Cookie": "PHPSESSID=nfh149n1eeg7mvi05fc3elsl2f"
+    }
+}
+[17-Jun-2025 13:41:42 Europe/Berlin] 2025-06-17 13:41:42 - Script started
+[17-Jun-2025 13:41:42 Europe/Berlin] 2025-06-17 13:41:42 - Received request body - Data: "{\"id\":\"1\",\"status\":\"approved\",\"userData\":{\"name\":\"admin\",\"department\":\"Admin\",\"username\":\"admin\"}}"
+[17-Jun-2025 13:41:42 Europe/Berlin] 2025-06-17 13:41:42 - Decoded request data - Data: {
+    "id": "1",
+    "status": "approved",
+    "userData": {
+        "name": "admin",
+        "department": "Admin",
+        "username": "admin"
+    }
+}
+[17-Jun-2025 19:41:42 Asia/Manila] Session ID: nfh149n1eeg7mvi05fc3elsl2f
+[17-Jun-2025 19:41:42 Asia/Manila] Session Data: Array
+(
+    [name] => admin
+    [department] => Admin
+    [role] => admin
+    [username] => admin
+)
+
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - Attempting database connection
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - Database connection successful
+[17-Jun-2025 19:41:42 Asia/Manila] Session ID in update_monitoring_status: nfh149n1eeg7mvi05fc3elsl2f
+[17-Jun-2025 19:41:42 Asia/Manila] Session Data in update_monitoring_status: Array
+(
+    [name] => admin
+    [department] => Admin
+    [role] => admin
+    [username] => admin
+)
+
+[17-Jun-2025 19:41:42 Asia/Manila] Request Data: Array
+(
+    [id] => 1
+    [status] => approved
+    [userData] => Array
+        (
+            [name] => admin
+            [department] => Admin
+            [username] => admin
+        )
+
+)
+
+[17-Jun-2025 19:41:42 Asia/Manila] Using session data: admin, Admin
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - Found tables in database - Data: [
+    "audit_logs",
+    "bank_documents",
+    "bir_accredited_cpa_documents",
+    "bir_documents",
+    "company_appraiser_banks_documents",
+    "company_lto_suppliers_documents",
+    "dole_accredited_trainers_documents",
+    "dole_accredited_training_centers_documents",
+    "dti_sec_cda_documents",
+    "employee",
+    "employee_audit_trail",
+    "iso_certifying_body_documents",
+    "lgu_documents",
+    "nbi_documents",
+    "pag_ibig_fund_documents",
+    "pcab_documents",
+    "philhealth_documents",
+    "prc_documents",
+    "sec_documents",
+    "sss_documents",
+    "users"
+]
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - Tables to check - Data: {
+    "0": "bir_documents",
+    "1": "pcab_documents",
+    "2": "iso_certifying_body_documents",
+    "35": "bank_documents",
+    "36": "bir_accredited_cpa_documents",
+    "37": "company_appraiser_banks_documents",
+    "38": "company_lto_suppliers_documents",
+    "39": "dole_accredited_trainers_documents",
+    "40": "dole_accredited_training_centers_documents",
+    "41": "dti_sec_cda_documents",
+    "42": "lgu_documents",
+    "43": "nbi_documents",
+    "44": "pag_ibig_fund_documents",
+    "45": "philhealth_documents",
+    "46": "prc_documents",
+    "47": "sec_documents",
+    "48": "sss_documents"
+}
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - Attempting to update record - Data: {
+    "id": "1",
+    "status": "Approved",
+    "progress": "Completed"
+}
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - Checking table - Data: "bir_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - No record found in table - Data: "bir_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - Checking table - Data: "pcab_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - No record found in table - Data: "pcab_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - Checking table - Data: "iso_certifying_body_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - No record found in table - Data: "iso_certifying_body_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - Checking table - Data: "bank_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - No record found in table - Data: "bank_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - Checking table - Data: "bir_accredited_cpa_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - No record found in table - Data: "bir_accredited_cpa_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - Checking table - Data: "company_appraiser_banks_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - No record found in table - Data: "company_appraiser_banks_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - Checking table - Data: "company_lto_suppliers_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - No record found in table - Data: "company_lto_suppliers_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - Checking table - Data: "dole_accredited_trainers_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - No record found in table - Data: "dole_accredited_trainers_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - Checking table - Data: "dole_accredited_training_centers_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - No record found in table - Data: "dole_accredited_training_centers_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - Checking table - Data: "dti_sec_cda_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - No record found in table - Data: "dti_sec_cda_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - Checking table - Data: "lgu_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - No record found in table - Data: "lgu_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - Checking table - Data: "nbi_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - No record found in table - Data: "nbi_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - Checking table - Data: "pag_ibig_fund_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - No record found in table - Data: "pag_ibig_fund_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - Checking table - Data: "philhealth_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - No record found in table - Data: "philhealth_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - Checking table - Data: "prc_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - No record found in table - Data: "prc_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - Checking table - Data: "sec_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - No record found in table - Data: "sec_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - Checking table - Data: "sss_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - Update successful in table - Data: "sss_documents"
+[17-Jun-2025 19:41:42 Asia/Manila] 2025-06-17 19:41:42 - Update successful, sending response
+[17-Jun-2025 13:44:52 Europe/Berlin] 2025-06-17 13:44:52 - Script started
+[17-Jun-2025 13:44:52 Europe/Berlin] 2025-06-17 13:44:52 - Received request body - Data: "{\"id\":\"1\",\"status\":\"rejected\",\"progress\":\"Pending\",\"userData\":{\"name\":\"admin\",\"department\":\"Admin\",\"username\":\"admin\"}}"
+[17-Jun-2025 13:44:52 Europe/Berlin] 2025-06-17 13:44:52 - Decoded request data - Data: {
+    "id": "1",
+    "status": "rejected",
+    "progress": "Pending",
+    "userData": {
+        "name": "admin",
+        "department": "Admin",
+        "username": "admin"
+    }
+}
+[17-Jun-2025 19:44:52 Asia/Manila] Session ID: nfh149n1eeg7mvi05fc3elsl2f
+[17-Jun-2025 19:44:52 Asia/Manila] Session Data: Array
+(
+    [name] => admin
+    [department] => Admin
+    [role] => admin
+    [username] => admin
+)
+
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - Attempting database connection
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - Database connection successful
+[17-Jun-2025 19:44:52 Asia/Manila] Session ID in update_monitoring_status: nfh149n1eeg7mvi05fc3elsl2f
+[17-Jun-2025 19:44:52 Asia/Manila] Session Data in update_monitoring_status: Array
+(
+    [name] => admin
+    [department] => Admin
+    [role] => admin
+    [username] => admin
+)
+
+[17-Jun-2025 19:44:52 Asia/Manila] Request Data: Array
+(
+    [id] => 1
+    [status] => rejected
+    [progress] => Pending
+    [userData] => Array
+        (
+            [name] => admin
+            [department] => Admin
+            [username] => admin
+        )
+
+)
+
+[17-Jun-2025 19:44:52 Asia/Manila] Using session data: admin, Admin
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - Found tables in database - Data: [
+    "audit_logs",
+    "bank_documents",
+    "bir_accredited_cpa_documents",
+    "bir_documents",
+    "company_appraiser_banks_documents",
+    "company_lto_suppliers_documents",
+    "dole_accredited_trainers_documents",
+    "dole_accredited_training_centers_documents",
+    "dti_sec_cda_documents",
+    "employee",
+    "employee_audit_trail",
+    "iso_certifying_body_documents",
+    "lgu_documents",
+    "nbi_documents",
+    "pag_ibig_fund_documents",
+    "pcab_documents",
+    "philhealth_documents",
+    "prc_documents",
+    "sec_documents",
+    "sss_documents",
+    "users"
+]
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - Tables to check - Data: {
+    "0": "bir_documents",
+    "1": "pcab_documents",
+    "2": "iso_certifying_body_documents",
+    "35": "bank_documents",
+    "36": "bir_accredited_cpa_documents",
+    "37": "company_appraiser_banks_documents",
+    "38": "company_lto_suppliers_documents",
+    "39": "dole_accredited_trainers_documents",
+    "40": "dole_accredited_training_centers_documents",
+    "41": "dti_sec_cda_documents",
+    "42": "lgu_documents",
+    "43": "nbi_documents",
+    "44": "pag_ibig_fund_documents",
+    "45": "philhealth_documents",
+    "46": "prc_documents",
+    "47": "sec_documents",
+    "48": "sss_documents"
+}
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - Attempting to update record - Data: {
+    "id": "1",
+    "status": "Rejected",
+    "progress": "Pending"
+}
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - Checking table - Data: "bir_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - No record found in table - Data: "bir_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - Checking table - Data: "pcab_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - No record found in table - Data: "pcab_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - Checking table - Data: "iso_certifying_body_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - No record found in table - Data: "iso_certifying_body_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - Checking table - Data: "bank_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - No record found in table - Data: "bank_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - Checking table - Data: "bir_accredited_cpa_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - No record found in table - Data: "bir_accredited_cpa_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - Checking table - Data: "company_appraiser_banks_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - No record found in table - Data: "company_appraiser_banks_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - Checking table - Data: "company_lto_suppliers_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - No record found in table - Data: "company_lto_suppliers_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - Checking table - Data: "dole_accredited_trainers_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - No record found in table - Data: "dole_accredited_trainers_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - Checking table - Data: "dole_accredited_training_centers_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - No record found in table - Data: "dole_accredited_training_centers_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - Checking table - Data: "dti_sec_cda_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - No record found in table - Data: "dti_sec_cda_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - Checking table - Data: "lgu_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - No record found in table - Data: "lgu_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - Checking table - Data: "nbi_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - No record found in table - Data: "nbi_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - Checking table - Data: "pag_ibig_fund_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - No record found in table - Data: "pag_ibig_fund_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - Checking table - Data: "philhealth_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - No record found in table - Data: "philhealth_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - Checking table - Data: "prc_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - No record found in table - Data: "prc_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - Checking table - Data: "sec_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - No record found in table - Data: "sec_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - Checking table - Data: "sss_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - Update successful in table - Data: "sss_documents"
+[17-Jun-2025 19:44:52 Asia/Manila] 2025-06-17 19:44:52 - Update successful, sending response
+[17-Jun-2025 13:47:38 Europe/Berlin] 2025-06-17 13:47:38 - Script started
+[17-Jun-2025 13:47:38 Europe/Berlin] 2025-06-17 13:47:38 - Received request body - Data: "{\"id\":\"2\",\"status\":\"approved\",\"userData\":{\"name\":\"admin\",\"department\":\"Admin\",\"username\":\"admin\"}}"
+[17-Jun-2025 13:47:38 Europe/Berlin] 2025-06-17 13:47:38 - Decoded request data - Data: {
+    "id": "2",
+    "status": "approved",
+    "userData": {
+        "name": "admin",
+        "department": "Admin",
+        "username": "admin"
+    }
+}
+[17-Jun-2025 19:47:38 Asia/Manila] Session ID: nfh149n1eeg7mvi05fc3elsl2f
+[17-Jun-2025 19:47:38 Asia/Manila] Session Data: Array
+(
+    [name] => admin
+    [department] => Admin
+    [role] => admin
+    [username] => admin
+)
+
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - Attempting database connection
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - Database connection successful
+[17-Jun-2025 19:47:38 Asia/Manila] Session ID in update_monitoring_status: nfh149n1eeg7mvi05fc3elsl2f
+[17-Jun-2025 19:47:38 Asia/Manila] Session Data in update_monitoring_status: Array
+(
+    [name] => admin
+    [department] => Admin
+    [role] => admin
+    [username] => admin
+)
+
+[17-Jun-2025 19:47:38 Asia/Manila] Request Data: Array
+(
+    [id] => 2
+    [status] => approved
+    [userData] => Array
+        (
+            [name] => admin
+            [department] => Admin
+            [username] => admin
+        )
+
+)
+
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - Found tables in database - Data: [
+    "audit_logs",
+    "bank_documents",
+    "bir_accredited_cpa_documents",
+    "bir_documents",
+    "company_appraiser_banks_documents",
+    "company_lto_suppliers_documents",
+    "dole_accredited_trainers_documents",
+    "dole_accredited_training_centers_documents",
+    "dti_sec_cda_documents",
+    "employee",
+    "employee_audit_trail",
+    "iso_certifying_body_documents",
+    "lgu_documents",
+    "nbi_documents",
+    "pag_ibig_fund_documents",
+    "pcab_documents",
+    "philhealth_documents",
+    "prc_documents",
+    "sec_documents",
+    "sss_documents",
+    "users"
+]
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - Tables to check - Data: {
+    "0": "bir_documents",
+    "1": "pcab_documents",
+    "2": "iso_certifying_body_documents",
+    "35": "bank_documents",
+    "36": "bir_accredited_cpa_documents",
+    "37": "company_appraiser_banks_documents",
+    "38": "company_lto_suppliers_documents",
+    "39": "dole_accredited_trainers_documents",
+    "40": "dole_accredited_training_centers_documents",
+    "41": "dti_sec_cda_documents",
+    "42": "lgu_documents",
+    "43": "nbi_documents",
+    "44": "pag_ibig_fund_documents",
+    "45": "philhealth_documents",
+    "46": "prc_documents",
+    "47": "sec_documents",
+    "48": "sss_documents"
+}
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - Attempting to update record - Data: {
+    "id": "2",
+    "status": "Approved",
+    "progress": "Completed"
+}
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - Checking table - Data: "bir_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - No record found in table - Data: "bir_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - Checking table - Data: "pcab_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - No record found in table - Data: "pcab_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - Checking table - Data: "iso_certifying_body_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - No record found in table - Data: "iso_certifying_body_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - Checking table - Data: "bank_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - No record found in table - Data: "bank_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - Checking table - Data: "bir_accredited_cpa_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - No record found in table - Data: "bir_accredited_cpa_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - Checking table - Data: "company_appraiser_banks_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - No record found in table - Data: "company_appraiser_banks_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - Checking table - Data: "company_lto_suppliers_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - No record found in table - Data: "company_lto_suppliers_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - Checking table - Data: "dole_accredited_trainers_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - No record found in table - Data: "dole_accredited_trainers_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - Checking table - Data: "dole_accredited_training_centers_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - No record found in table - Data: "dole_accredited_training_centers_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - Checking table - Data: "dti_sec_cda_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - No record found in table - Data: "dti_sec_cda_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - Checking table - Data: "lgu_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - No record found in table - Data: "lgu_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - Checking table - Data: "nbi_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - No record found in table - Data: "nbi_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - Checking table - Data: "pag_ibig_fund_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - No record found in table - Data: "pag_ibig_fund_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - Checking table - Data: "philhealth_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - No record found in table - Data: "philhealth_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - Checking table - Data: "prc_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - No record found in table - Data: "prc_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - Checking table - Data: "sec_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - No record found in table - Data: "sec_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - Checking table - Data: "sss_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - Update successful in table - Data: "sss_documents"
+[17-Jun-2025 19:47:38 Asia/Manila] 2025-06-17 19:47:38 - Update successful, sending response
+[17-Jun-2025 13:50:25 Europe/Berlin] 2025-06-17 13:50:25 - Script started
+[17-Jun-2025 13:50:25 Europe/Berlin] 2025-06-17 13:50:25 - Received request body - Data: "{\"id\":\"2\",\"status\":\"rejected\",\"progress\":\"Pending\",\"userData\":{\"name\":\"admin\",\"department\":\"Admin\",\"username\":\"admin\"}}"
+[17-Jun-2025 13:50:25 Europe/Berlin] 2025-06-17 13:50:25 - Decoded request data - Data: {
+    "id": "2",
+    "status": "rejected",
+    "progress": "Pending",
+    "userData": {
+        "name": "admin",
+        "department": "Admin",
+        "username": "admin"
+    }
+}
+[17-Jun-2025 19:50:25 Asia/Manila] Session ID: nfh149n1eeg7mvi05fc3elsl2f
+[17-Jun-2025 19:50:25 Asia/Manila] Session Data: Array
+(
+    [name] => admin
+    [department] => Admin
+    [role] => admin
+    [username] => admin
+)
+
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - Attempting database connection
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - Database connection successful
+[17-Jun-2025 19:50:25 Asia/Manila] Session ID in update_monitoring_status: nfh149n1eeg7mvi05fc3elsl2f
+[17-Jun-2025 19:50:25 Asia/Manila] Session Data in update_monitoring_status: Array
+(
+    [name] => admin
+    [department] => Admin
+    [role] => admin
+    [username] => admin
+)
+
+[17-Jun-2025 19:50:25 Asia/Manila] Request Data: Array
+(
+    [id] => 2
+    [status] => rejected
+    [progress] => Pending
+    [userData] => Array
+        (
+            [name] => admin
+            [department] => Admin
+            [username] => admin
+        )
+
+)
+
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - Found tables in database - Data: [
+    "audit_logs",
+    "bank_documents",
+    "bir_accredited_cpa_documents",
+    "bir_documents",
+    "company_appraiser_banks_documents",
+    "company_lto_suppliers_documents",
+    "dole_accredited_trainers_documents",
+    "dole_accredited_training_centers_documents",
+    "dti_sec_cda_documents",
+    "employee",
+    "employee_audit_trail",
+    "iso_certifying_body_documents",
+    "lgu_documents",
+    "nbi_documents",
+    "pag_ibig_fund_documents",
+    "pcab_documents",
+    "philhealth_documents",
+    "prc_documents",
+    "sec_documents",
+    "sss_documents",
+    "users"
+]
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - Tables to check - Data: {
+    "0": "bir_documents",
+    "1": "pcab_documents",
+    "2": "iso_certifying_body_documents",
+    "35": "bank_documents",
+    "36": "bir_accredited_cpa_documents",
+    "37": "company_appraiser_banks_documents",
+    "38": "company_lto_suppliers_documents",
+    "39": "dole_accredited_trainers_documents",
+    "40": "dole_accredited_training_centers_documents",
+    "41": "dti_sec_cda_documents",
+    "42": "lgu_documents",
+    "43": "nbi_documents",
+    "44": "pag_ibig_fund_documents",
+    "45": "philhealth_documents",
+    "46": "prc_documents",
+    "47": "sec_documents",
+    "48": "sss_documents"
+}
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - Attempting to update record - Data: {
+    "id": "2",
+    "status": "Rejected",
+    "progress": "Pending"
+}
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - Checking table - Data: "bir_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - No record found in table - Data: "bir_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - Checking table - Data: "pcab_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - No record found in table - Data: "pcab_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - Checking table - Data: "iso_certifying_body_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - No record found in table - Data: "iso_certifying_body_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - Checking table - Data: "bank_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - No record found in table - Data: "bank_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - Checking table - Data: "bir_accredited_cpa_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - No record found in table - Data: "bir_accredited_cpa_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - Checking table - Data: "company_appraiser_banks_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - No record found in table - Data: "company_appraiser_banks_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - Checking table - Data: "company_lto_suppliers_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - No record found in table - Data: "company_lto_suppliers_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - Checking table - Data: "dole_accredited_trainers_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - No record found in table - Data: "dole_accredited_trainers_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - Checking table - Data: "dole_accredited_training_centers_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - No record found in table - Data: "dole_accredited_training_centers_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - Checking table - Data: "dti_sec_cda_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - No record found in table - Data: "dti_sec_cda_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - Checking table - Data: "lgu_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - No record found in table - Data: "lgu_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - Checking table - Data: "nbi_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - No record found in table - Data: "nbi_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - Checking table - Data: "pag_ibig_fund_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - No record found in table - Data: "pag_ibig_fund_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - Checking table - Data: "philhealth_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - No record found in table - Data: "philhealth_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - Checking table - Data: "prc_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - No record found in table - Data: "prc_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - Checking table - Data: "sec_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - No record found in table - Data: "sec_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - Checking table - Data: "sss_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - Update successful in table - Data: "sss_documents"
+[17-Jun-2025 19:50:25 Asia/Manila] 2025-06-17 19:50:25 - Update successful, sending response

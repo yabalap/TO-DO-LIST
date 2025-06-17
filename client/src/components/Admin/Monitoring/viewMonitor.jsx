@@ -100,9 +100,24 @@ const ViewMonitor = () => {
       setActionError(null);
       setSuccess(null);
 
+      // Get user data and token from localStorage
+      const userData = JSON.parse(localStorage.getItem('userData'));
+      const token = localStorage.getItem('token');
+      
+      if (!userData || !token) {
+        throw new Error('User data or token not found. Please log in again.');
+      }
+
+      // Ensure we have the required user information
+      const userInfo = {
+        name: userData.name || userData.username, // Fallback to username if name is null
+        department: userData.department || 'Admin', // Fallback to Admin if department is null
+        username: userData.username
+      };
+
       // Log the request details for debugging
       console.log('Sending request to:', `http://localhost/TO-DO-LIST/server/monitoring/update_monitoring_status.php`);
-      console.log('Request data:', { id, status });
+      console.log('Request data:', { id, status, userInfo });
 
       const response = await fetch(`http://localhost/TO-DO-LIST/server/monitoring/update_monitoring_status.php`, {
         method: 'POST',
@@ -110,11 +125,13 @@ const ViewMonitor = () => {
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
           id: id,
           status: status,
-          progress: status === 'rejected' ? 'Pending' : undefined
+          progress: status === 'rejected' ? 'Pending' : undefined,
+          userData: userInfo
         })
       });
 

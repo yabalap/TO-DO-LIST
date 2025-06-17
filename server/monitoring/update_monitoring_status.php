@@ -41,6 +41,11 @@ function sendErrorResponse($message, $code = 400) {
     sendJsonResponse(false, $message);
 }
 
+// Start session if not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 try {
     logMessage("Script started");
     
@@ -82,6 +87,7 @@ try {
 
     // Initialize database connection
     require_once '../config/Database.php';
+    require_once '../audit/audit_logger.php';
     
     try {
         logMessage("Attempting database connection");
@@ -92,6 +98,33 @@ try {
             throw new Exception("Failed to connect to database");
         }
         logMessage("Database connection successful");
+
+        // Get user data from session or request
+        $userData = null;
+        if (isset($_SESSION['userData'])) {
+            $userData = $_SESSION['userData'];
+        } elseif (isset($data['userData'])) {
+            $userData = $data['userData'];
+        }
+
+        // Ensure we have the required user information
+        if (!$userData) {
+            throw new Exception('User data not found. Please log in again.');
+        }
+
+        // Set default department for admin users
+        $department = $userData['department'] ?? 'Admin';
+        if (strtolower($userData['role'] ?? '') === 'admin') {
+            $department = 'Admin';
+        }
+
+        // Debug session information
+        error_log('Session ID in update_monitoring_status: ' . session_id());
+        error_log('Session Data in update_monitoring_status: ' . print_r($_SESSION, true));
+        error_log('Request Data: ' . print_r($data, true));
+
+        // Initialize audit logger
+        $auditLogger = new AuditLogger();
 
         // Get list of actual tables in the database
         $tablesQuery = $conn->query("SHOW TABLES");
@@ -186,6 +219,27 @@ try {
                     logMessage("No record found in table", $table);
                     continue;
                 }
+
+                // Get the current record data for audit logging
+                $currentData = $checkStmt->fetch(PDO::FETCH_ASSOC);
+                $oldData = [
+                    'status' => $currentData['status'],
+                    'progress' => $currentData['progress']
+                ];
+                $newData = [
+                    'status' => $status,
+                    'progress' => $progress
+                ];
+
+                // Log the status change with the actual table name
+                $auditLogger->logUpdate(
+                    $table,
+                    $data['id'],
+                    $oldData,
+                    $newData,
+                    $userData['name'] ?? $userData['username'],
+                    $department
+                );
 
                 // Update status and progress fields
                 $updateQuery = "UPDATE `$table` SET status = ?, progress = ? WHERE id = ?";

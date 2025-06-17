@@ -1,4 +1,9 @@
 <?php
+// Start session if not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // Get the origin from the request headers
 $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
 
@@ -23,4 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
 }
+
+// Set default timezone
+date_default_timezone_set('Asia/Manila');
+
+// Debug session information
+error_log('Session ID: ' . session_id());
+error_log('Session Data: ' . print_r($_SESSION, true));
 ?> 
