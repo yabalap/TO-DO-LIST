@@ -104,6 +104,9 @@ const UploadsEmployee = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
+      const userData = JSON.parse(localStorage.getItem('userData'));
+      const userDepartment = userData?.department;
+
       const response = await fetch('http://localhost/TO-DO-LIST/server/uploads/fetch_uploads.php', {
         method: 'GET',
         credentials: 'include',
@@ -118,7 +121,19 @@ const UploadsEmployee = () => {
         throw new Error(result.error || 'Failed to fetch data');
       }
 
-      setFiles(result.data);
+      // Filter data based on user's department
+      const filteredData = result.data.filter(file => {
+        // If user has no department, show all data
+        if (!userDepartment) return true;
+        
+        // Get allowed directories for the user's department
+        const allowedDirectories = departmentDirectoryMap[userDepartment] || [];
+        
+        // Check if the file's table_name is in the allowed directories
+        return allowedDirectories.includes(file.table_name);
+      });
+
+      setFiles(filteredData);
       setError(null);
     } catch (error) {
       console.error('Error fetching data:', error);
