@@ -24,7 +24,7 @@ try {
     }
 
     // Prepare query
-    $query = "SELECT u.id, u.username, u.password, u.role, u.created_at, u.updated_at, e.department 
+    $query = "SELECT u.id, u.username, u.password, u.role, u.created_at, u.updated_at, e.department, e.name 
               FROM users u 
               LEFT JOIN employee e ON u.username = e.username 
               WHERE u.username = ?";
@@ -69,6 +69,7 @@ try {
         "user" => array(
             "id" => $row['id'],
             "username" => $row['username'],
+            "name" => $row['name'],
             "department" => $row['department'],
             "created_at" => $row['created_at'],
             "updated_at" => $row['updated_at']

@@ -67,6 +67,8 @@ try {
                      link_proof = :link_proof,
                      special_description = :special_description,
                      progress = :progress,
+                     department = :department,
+                     person_accountable = :person_accountable,
                      updated_at = CURRENT_TIMESTAMP
                  WHERE id = :id";
         
@@ -75,6 +77,8 @@ try {
         $stmt->bindParam(':link_proof', $data['link_proof']);
         $stmt->bindParam(':special_description', $data['special_description']);
         $stmt->bindParam(':progress', $data['progress']);
+        $stmt->bindParam(':department', $data['department']);
+        $stmt->bindParam(':person_accountable', $data['person_accountable']);
         $stmt->bindParam(':id', $id);
         
         if ($stmt->execute() && $stmt->rowCount() > 0) {

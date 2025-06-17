@@ -12,6 +12,7 @@ const EditMonitor = () => {
     progress: 'Completed'
   });
   const [displayDate, setDisplayDate] = useState('');
+  const [error, setError] = useState('');
 
   const formatDate = (dateString) => {
     if (!dateString) return '';
@@ -43,7 +44,25 @@ const EditMonitor = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    
     try {
+      // Get current user data from localStorage
+      const userData = JSON.parse(localStorage.getItem('userData'));
+      
+      if (!userData || !userData.department || !userData.name) {
+        throw new Error('User data is incomplete. Please log out and log in again.');
+      }
+      
+      // Prepare the data with department and person_accountable
+      const submitData = {
+        ...formData,
+        department: userData.department,
+        person_accountable: userData.name
+      };
+
+      console.log('Submitting data:', submitData);
+
       const response = await fetch(`http://localhost/TO-DO-LIST/server/monitoring/update_monitoring.php?id=${id}`, {
         method: 'PUT',
         mode: 'cors',
@@ -52,7 +71,7 @@ const EditMonitor = () => {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(submitData)
       });
 
       let result;
@@ -69,9 +88,15 @@ const EditMonitor = () => {
         throw new Error(result.error || 'Failed to update monitoring');
       }
 
+      if (!result.success) {
+        throw new Error(result.error || 'Failed to update monitoring');
+      }
+
+      console.log('Update successful:', result);
       navigate('/employee/monitoring');
     } catch (error) {
       console.error('Error updating monitoring:', error);
+      setError(error.message || 'An error occurred while updating the monitoring details');
     }
   };
 
@@ -79,6 +104,12 @@ const EditMonitor = () => {
     <div className="monitoring-container">
       <div className="edit-form-container">
         <h2 className="edit-form-title">Edit Monitoring Details</h2>
+        
+        {error && (
+          <div className="error-message">
+            {error}
+          </div>
+        )}
         
         <form onSubmit={handleSubmit}>
           <div className="form-group">
