@@ -1,4 +1,7 @@
 <?php
+// Include CORS middleware
+require_once '../config/cors.php';
+
 header("Content-Type: application/json; charset=UTF-8");
 
 require_once '../config/database.php';
