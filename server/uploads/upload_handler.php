@@ -47,11 +47,13 @@ try {
     $file = $_FILES['file'];
     $tableName = $_POST['table'];
     $postedUsername = isset($_POST['username']) ? $_POST['username'] : null;
+    $postedDepartment = isset($_POST['department']) ? $_POST['department'] : null;
 
     // Debug information
     error_log('Received file: ' . print_r($file, true));
     error_log('Table name: ' . $tableName);
     error_log('Posted Username: ' . ($postedUsername ?? 'Not set'));
+    error_log('Posted Department: ' . ($postedDepartment ?? 'Not set'));
 
     // Validate file type
     $allowedTypes = [
@@ -104,6 +106,9 @@ try {
         if (!in_array('person_accountable', $headers)) {
             $headers[] = 'person_accountable';
         }
+        if (!in_array('department', $headers)) {
+            $headers[] = 'department';
+        }
 
         // Debug information
         error_log('Headers: ' . print_r($headers, true));
@@ -133,13 +138,14 @@ try {
                 }
             }
             
-            // Add timestamps and person_accountable at the end
+            // Add timestamps, person_accountable and department at the end
             $currentTimestamp = date('Y-m-d H:i:s');
             
             // Find the indices for our special columns
             $uploadedAtIndex = array_search('uploaded_at', $headers);
             $updatedAtIndex = array_search('updated_at', $headers);
             $personAccountableIndex = array_search('person_accountable', $headers);
+            $departmentIndex = array_search('department', $headers);
             
             // Set the values at the correct indices
             if ($uploadedAtIndex !== false) {
@@ -150,6 +156,9 @@ try {
             }
             if ($personAccountableIndex !== false) {
                 $values[$personAccountableIndex] = $userName;
+            }
+            if ($departmentIndex !== false) {
+                $values[$departmentIndex] = $postedDepartment;
             }
 
             // Debug values array

@@ -159,11 +159,13 @@ const UploadsEmployee = () => {
       try {
         const userData = JSON.parse(localStorage.getItem('userData'));
         const username = userData?.username;
+        const department = userData?.department;
 
         const formData = new FormData();
         formData.append('file', selectedFile);
         formData.append('table', selectedDirectory.value);
         formData.append('username', username);
+        formData.append('department', department);
 
         const response = await fetch('http://localhost/TO-DO-LIST/server/uploads/upload_handler.php', {
           method: 'POST',
