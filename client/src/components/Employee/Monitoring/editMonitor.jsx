@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../../../css/Employee/monitor.css';
 
@@ -13,6 +13,56 @@ const EditMonitor = () => {
   });
   const [displayDate, setDisplayDate] = useState('');
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchMonitoringDetails = async () => {
+      try {
+        const response = await fetch(`http://localhost/TO-DO-LIST/server/monitoring/fetch_monitoring_by_id.php?id=${id}`, {
+          method: 'GET',
+          credentials: 'include',
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch monitoring details');
+        }
+
+        const data = await response.json();
+        if (data.success && data.data) {
+          // Convert the expiration_date to YYYY-MM-DD format for the input field
+          const expirationDate = data.data.expirationDate;
+          console.log('Raw expiration date from server:', expirationDate);
+          
+          if (expirationDate) {
+            // Split the date and ensure proper formatting
+            const [month, day, year] = expirationDate.split('-');
+            // Ensure month and day are padded with zeros if needed
+            const paddedMonth = month.padStart(2, '0');
+            const paddedDay = day.padStart(2, '0');
+            // Format for display in input (YYYY-MM-DD)
+            const formattedDate = `${year}-${paddedMonth}-${paddedDay}`;
+            console.log('Formatted date for input:', formattedDate);
+            setDisplayDate(formattedDate);
+          }
+          
+          console.log('Full monitoring data:', data.data);
+          
+          setFormData(prevState => ({
+            ...prevState,
+            expiration_date: data.data.expirationDate || '',
+            link_proof: data.data.link_proof || '',
+            special_description: data.data.special_description || '',
+            progress: data.data.progress || 'Completed',
+            status: data.data.status || ''
+          }));
+        }
+      } catch (error) {
+        console.error('Error fetching monitoring details:', error);
+        setError('Failed to load monitoring details');
+      }
+    };
+
+    fetchMonitoringDetails();
+  }, [id]);
 
   const formatDate = (dateString) => {
     if (!dateString) return '';
@@ -29,7 +79,11 @@ const EditMonitor = () => {
       // Store the original date for display
       setDisplayDate(value);
       // Convert the date to mm-dd-yyyy format for submission
-      const formattedDate = formatDate(value);
+      const date = new Date(value);
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const year = date.getFullYear();
+      const formattedDate = `${month}-${day}-${year}`;
       setFormData(prevState => ({
         ...prevState,
         [name]: formattedDate
@@ -59,7 +113,8 @@ const EditMonitor = () => {
         ...formData,
         department: userData.department,
         person_accountable: userData.name,
-        status: 'Pending'  // Set status to Pending when submitting
+        status: 'Pending',  // Always set status to Pending when submitting
+        progress: 'Completed' // Always set progress to Completed when submitting
       };
 
       console.log('Submitting data:', submitData);
