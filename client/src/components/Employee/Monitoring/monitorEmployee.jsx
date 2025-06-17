@@ -24,6 +24,18 @@ import SearchIcon from '@mui/icons-material/Search';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import EditIcon from '@mui/icons-material/Edit';
 
+const departmentDirectoryMap = {
+  "Executive": ["pcab_documents", "iso_certifying_body_documents"],
+  "Compliance": ["pcab_documents", "iso_certifying_body_documents"],
+  "Legal": ["dti_sec_cda_documents", "bir_documents", "lgu_documents", "sec_documents", "pcab_documents"],
+  "Corporate Affairs": ["dti_sec_cda_documents", "bir_documents", "lgu_documents", "sec_documents", "pcab_documents"],
+  "HR": ["sss_documents", "philhealth_documents", "pag_ibig_fund_documents", "dole_accredited_training_centers_documents", "nbi_documents"],
+  "Accounting": ["bir_accredited_cpa_documents", "company_appraiser_banks_documents", "bank_documents"],
+  "Finance": ["bir_accredited_cpa_documents", "company_appraiser_banks_documents", "bank_documents"],
+  "Engineer": ["prc_documents", "dole_accredited_trainers_documents", "pcab_documents", "company_lto_suppliers_documents"],
+  "Technical": ["prc_documents", "dole_accredited_trainers_documents", "pcab_documents", "company_lto_suppliers_documents"]
+};
+
 const MonitorEmployee = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
@@ -39,6 +51,11 @@ const MonitorEmployee = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
+      // Get user department from localStorage
+      const userData = JSON.parse(localStorage.getItem('userData'));
+      const userDepartment = userData?.department;
+      console.log('Current user department:', userDepartment);
+
       const response = await fetch('http://localhost/TO-DO-LIST/server/monitoring/fetch_monitoring.php', {
         method: 'GET',
         credentials: 'include',
@@ -53,7 +70,20 @@ const MonitorEmployee = () => {
         throw new Error(result.error || 'Failed to fetch data');
       }
 
-      setData(result.data);
+      // Filter data based on user's department
+      const filteredData = result.data.filter(item => {
+        // If user has no department, show all data
+        if (!userDepartment) return true;
+        
+        // Get allowed directories for the user's department
+        const allowedDirectories = departmentDirectoryMap[userDepartment] || [];
+        
+        // Check if the item's table_name is in the allowed directories
+        return allowedDirectories.includes(item.table_name);
+      });
+
+      console.log('Filtered data based on department:', filteredData);
+      setData(filteredData);
       setError(null);
     } catch (error) {
       console.error('Error fetching data:', error);
