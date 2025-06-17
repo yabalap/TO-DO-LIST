@@ -157,9 +157,13 @@ const UploadsEmployee = () => {
   const handleUpload = async () => {
     if (selectedFile && selectedDirectory) {
       try {
+        const userData = JSON.parse(localStorage.getItem('userData'));
+        const username = userData?.username;
+
         const formData = new FormData();
         formData.append('file', selectedFile);
         formData.append('table', selectedDirectory.value);
+        formData.append('username', username);
 
         const response = await fetch('http://localhost/TO-DO-LIST/server/uploads/upload_handler.php', {
           method: 'POST',
@@ -346,13 +350,14 @@ const UploadsEmployee = () => {
                 <th>Renewal Frequency</th>
                 <th>Validity Date</th>
                 <th>Due Date</th>
+                <th>Uploaded At</th>
                 <th>Table</th>
               </tr>
             </thead>
             <tbody>
               {filteredFiles.length === 0 ? (
                 <tr>
-                  <td colSpan="8" className="no-files">No files found</td>
+                  <td colSpan="9" className="no-files">No files found</td>
                 </tr>
               ) : (
                 filteredFiles.map((file, index) => (
@@ -360,10 +365,11 @@ const UploadsEmployee = () => {
                     <td>{file.type}</td>
                     <td>{file.department}</td>
                     <td>{file.description}</td>
-                    <td>{file.personAccountable}</td>
+                    <td>{file.person_accountable}</td>
                     <td>{file.renewal_frequency}</td>
                     <td>{file.validity_date}</td>
                     <td>{file.due_date}</td>
+                    <td>{file.uploaded_at}</td>
                     <td>{file.table_name}</td>
                   </tr>
                 ))
