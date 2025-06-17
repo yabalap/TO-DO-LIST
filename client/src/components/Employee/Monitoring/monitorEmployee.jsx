@@ -194,7 +194,7 @@ const MonitorEmployee = () => {
               <TableCell>Department</TableCell>
               <TableCell>Description</TableCell>
               <TableCell>Person Accountable</TableCell>
-              <TableCell>Renewal Frequency</TableCell>
+              <TableCell>Expiration Date</TableCell>
               <TableCell>Validity Date</TableCell>
               <TableCell>Due Date</TableCell>
               <TableCell>Process Days</TableCell>
@@ -217,7 +217,7 @@ const MonitorEmployee = () => {
                   <TableCell>{row.department}</TableCell>
                   <TableCell>{row.description}</TableCell>
                   <TableCell>{row.personAccountable}</TableCell>
-                  <TableCell>{row.renewalFrequency}</TableCell>
+                  <TableCell>{row.expirationDate || '-'}</TableCell>
                   <TableCell>{row.validityDate}</TableCell>
                   <TableCell>{row.dueDate}</TableCell>
                   <TableCell>{row.process_days || '-'}</TableCell>
