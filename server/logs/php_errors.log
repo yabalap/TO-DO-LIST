@@ -10140,3 +10140,115 @@
 [16-Jun-2025 11:05:02 Europe/Berlin] 2025-06-16 11:05:02 - Checking table - Data: "bir_documents"
 [16-Jun-2025 11:05:02 Europe/Berlin] 2025-06-16 11:05:02 - Update successful in table - Data: "bir_documents"
 [16-Jun-2025 11:05:02 Europe/Berlin] 2025-06-16 11:05:02 - Update successful, sending response
+[17-Jun-2025 02:16:58 Europe/Berlin] 2025-06-17 02:16:58 - Script started
+[17-Jun-2025 02:16:58 Europe/Berlin] 2025-06-17 02:16:58 - Received request body - Data: "{\"id\":\"3\",\"status\":\"approved\"}"
+[17-Jun-2025 02:16:58 Europe/Berlin] 2025-06-17 02:16:58 - Decoded request data - Data: {
+    "id": "3",
+    "status": "approved"
+}
+[17-Jun-2025 02:16:58 Europe/Berlin] 2025-06-17 02:16:58 - Attempting database connection
+[17-Jun-2025 02:16:58 Europe/Berlin] 2025-06-17 02:16:58 - Database connection successful
+[17-Jun-2025 02:16:58 Europe/Berlin] 2025-06-17 02:16:58 - Found tables in database - Data: [
+    "bank_documents",
+    "bir_accredited_cpa_documents",
+    "bir_documents",
+    "company_appraiser_banks_documents",
+    "company_lto_suppliers_documents",
+    "dole_accredited_trainers_documents",
+    "dole_accredited_training_centers_documents",
+    "dti_sec_cda_documents",
+    "employee",
+    "iso_certifying_body_documents",
+    "lgu_documents",
+    "nbi_documents",
+    "pag_ibig_fund_documents",
+    "pcab_documents",
+    "philhealth_documents",
+    "prc_documents",
+    "sec_documents",
+    "sss_documents",
+    "users"
+]
+[17-Jun-2025 02:16:58 Europe/Berlin] 2025-06-17 02:16:58 - Tables to check - Data: {
+    "0": "bir_documents",
+    "1": "pcab_documents",
+    "2": "iso_certifying_body_documents",
+    "35": "bank_documents",
+    "36": "bir_accredited_cpa_documents",
+    "37": "company_appraiser_banks_documents",
+    "38": "company_lto_suppliers_documents",
+    "39": "dole_accredited_trainers_documents",
+    "40": "dole_accredited_training_centers_documents",
+    "41": "dti_sec_cda_documents",
+    "42": "lgu_documents",
+    "43": "nbi_documents",
+    "44": "pag_ibig_fund_documents",
+    "45": "philhealth_documents",
+    "46": "prc_documents",
+    "47": "sec_documents",
+    "48": "sss_documents"
+}
+[17-Jun-2025 02:16:58 Europe/Berlin] 2025-06-17 02:16:58 - Attempting to update record - Data: {
+    "id": "3",
+    "status": "Approved",
+    "progress": "Completed"
+}
+[17-Jun-2025 02:16:58 Europe/Berlin] 2025-06-17 02:16:58 - Checking table - Data: "bir_documents"
+[17-Jun-2025 02:16:58 Europe/Berlin] 2025-06-17 02:16:58 - Update successful in table - Data: "bir_documents"
+[17-Jun-2025 02:16:58 Europe/Berlin] 2025-06-17 02:16:58 - Update successful, sending response
+[17-Jun-2025 02:18:34 Europe/Berlin] 2025-06-17 02:18:34 - Script started
+[17-Jun-2025 02:18:34 Europe/Berlin] 2025-06-17 02:18:34 - Received request body - Data: "{\"id\":\"4\",\"status\":\"approved\"}"
+[17-Jun-2025 02:18:34 Europe/Berlin] 2025-06-17 02:18:34 - Decoded request data - Data: {
+    "id": "4",
+    "status": "approved"
+}
+[17-Jun-2025 02:18:34 Europe/Berlin] 2025-06-17 02:18:34 - Attempting database connection
+[17-Jun-2025 02:18:34 Europe/Berlin] 2025-06-17 02:18:34 - Database connection successful
+[17-Jun-2025 02:18:34 Europe/Berlin] 2025-06-17 02:18:34 - Found tables in database - Data: [
+    "bank_documents",
+    "bir_accredited_cpa_documents",
+    "bir_documents",
+    "company_appraiser_banks_documents",
+    "company_lto_suppliers_documents",
+    "dole_accredited_trainers_documents",
+    "dole_accredited_training_centers_documents",
+    "dti_sec_cda_documents",
+    "employee",
+    "iso_certifying_body_documents",
+    "lgu_documents",
+    "nbi_documents",
+    "pag_ibig_fund_documents",
+    "pcab_documents",
+    "philhealth_documents",
+    "prc_documents",
+    "sec_documents",
+    "sss_documents",
+    "users"
+]
+[17-Jun-2025 02:18:34 Europe/Berlin] 2025-06-17 02:18:34 - Tables to check - Data: {
+    "0": "bir_documents",
+    "1": "pcab_documents",
+    "2": "iso_certifying_body_documents",
+    "35": "bank_documents",
+    "36": "bir_accredited_cpa_documents",
+    "37": "company_appraiser_banks_documents",
+    "38": "company_lto_suppliers_documents",
+    "39": "dole_accredited_trainers_documents",
+    "40": "dole_accredited_training_centers_documents",
+    "41": "dti_sec_cda_documents",
+    "42": "lgu_documents",
+    "43": "nbi_documents",
+    "44": "pag_ibig_fund_documents",
+    "45": "philhealth_documents",
+    "46": "prc_documents",
+    "47": "sec_documents",
+    "48": "sss_documents"
+}
+[17-Jun-2025 02:18:34 Europe/Berlin] 2025-06-17 02:18:34 - Attempting to update record - Data: {
+    "id": "4",
+    "status": "Approved",
+    "progress": "Completed"
+}
+[17-Jun-2025 02:18:34 Europe/Berlin] 2025-06-17 02:18:34 - Checking table - Data: "bir_documents"
+[17-Jun-2025 02:18:34 Europe/Berlin] 2025-06-17 02:18:34 - Update successful in table - Data: "bir_documents"
+[17-Jun-2025 02:18:34 Europe/Berlin] 2025-06-17 02:18:34 - Update successful, sending response

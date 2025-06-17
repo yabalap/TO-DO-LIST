@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import Select from 'react-select';
 import '../../../css/Admin/manageEmployee.css';
 
 const EditUser = () => {
@@ -14,8 +15,42 @@ const EditUser = () => {
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(true);
 
-  const departments = ['Audit', 'Accounting', 'HR', 'Engineer', 'IT'];
+  const departments = [
+    { value: 'Legal', label: 'Legal' },
+    { value: 'Executive', label: 'Executive' },
+    { value: 'Compliance', label: 'Compliance' },
+    { value: 'Corporate Affairs', label: 'Corporate Affairs' },
+    { value: 'Finance', label: 'Finance' },
+    { value: 'Technical', label: 'Technical' },
+    { value: 'Accounting', label: 'Accounting' },
+    { value: 'HR', label: 'HR' },
+    { value: 'Engineer', label: 'Engineer' }
+  ];
   const roles = ['admin', 'employee'];
+
+  const customStyles = {
+    control: (base) => ({
+      ...base,
+      minHeight: '42px',
+      border: '1px solid #ddd',
+      boxShadow: 'none',
+      '&:hover': {
+        border: '1px solid #999'
+      }
+    }),
+    menu: (base) => ({
+      ...base,
+      zIndex: 9999
+    }),
+    option: (base, state) => ({
+      ...base,
+      backgroundColor: state.isFocused ? '#f0f0f0' : 'white',
+      color: '#333',
+      '&:active': {
+        backgroundColor: '#e0e0e0'
+      }
+    })
+  };
 
   useEffect(() => {
     fetchEmployeeData();
@@ -58,6 +93,13 @@ const EditUser = () => {
     }));
   };
 
+  const handleDepartmentChange = (selectedOption) => {
+    setFormData(prevState => ({
+      ...prevState,
+      department: selectedOption.value
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -65,14 +107,12 @@ const EditUser = () => {
 
     try {
       const response = await fetch('http://localhost/TO-DO-LIST/server/employee/update_employee.php', {
-        method: 'POST',
+        method: 'PUT',
         headers: {
-          'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ ...formData, id }),
-        credentials: 'include',
-        mode: 'cors'
+        credentials: 'include'
       });
 
       const data = await response.json();
@@ -125,20 +165,17 @@ const EditUser = () => {
 
         <div className="form-group">
           <label htmlFor="department">Department</label>
-          <select
-            id="department"
-            name="department"
-            value={formData.department}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select Department</option>
-            {departments.map((dept) => (
-              <option key={dept} value={dept}>
-                {dept}
-              </option>
-            ))}
-          </select>
+          <Select
+            value={departments.find(option => option.value === formData.department)}
+            onChange={handleDepartmentChange}
+            options={departments}
+            styles={customStyles}
+            placeholder="Select Department"
+            isClearable
+            isSearchable
+            className="department-select"
+            classNamePrefix="select"
+          />
         </div>
 
         <div className="form-group">

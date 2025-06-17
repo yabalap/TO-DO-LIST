@@ -1,16 +1,11 @@
 <?php
-// Allow from any origin
-header("Access-Control-Allow-Origin: http://localhost:5173");
-header("Access-Control-Allow-Credentials: true");
-header("Access-Control-Allow-Methods: POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-header("Content-Type: application/json; charset=UTF-8");
+// Enable error reporting
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-// Handle preflight OPTIONS request
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    http_response_code(200);
-    exit();
-}
+// Set content type
+header("Content-Type: application/json; charset=UTF-8");
 
 require_once '../config/database.php';
 
@@ -20,11 +15,30 @@ try {
     $db = $database->getConnection();
 
     // Get posted data
-    $data = json_decode(file_get_contents("php://input"));
+    $raw_data = file_get_contents("php://input");
+    error_log("Raw input data: " . $raw_data); // Debug log
+    
+    $data = json_decode($raw_data);
+    error_log("Decoded data: " . print_r($data, true)); // Debug log
 
     // Validate input
     if (empty($data->name) || empty($data->department) || empty($data->username) || empty($data->password) || empty($data->role)) {
+        error_log("Validation failed. Missing fields:"); // Debug log
+        error_log("name: " . (empty($data->name) ? "empty" : "set"));
+        error_log("department: " . (empty($data->department) ? "empty" : "set"));
+        error_log("username: " . (empty($data->username) ? "empty" : "set"));
+        error_log("password: " . (empty($data->password) ? "empty" : "set"));
+        error_log("role: " . (empty($data->role) ? "empty" : "set"));
         throw new Exception("All fields are required");
+    }
+
+    // Check if username already exists
+    $check_query = "SELECT username FROM users WHERE username = ?";
+    $check_stmt = $db->prepare($check_query);
+    $check_stmt->execute([$data->username]);
+    
+    if ($check_stmt->rowCount() > 0) {
+        throw new Exception("Username already exists");
     }
 
     // Hash the password
@@ -47,6 +61,7 @@ try {
     ));
 
 } catch (Exception $e) {
+    error_log("Error in add_employee.php: " . $e->getMessage()); // Debug log
     http_response_code(400);
     echo json_encode(array(
         "message" => $e->getMessage()
