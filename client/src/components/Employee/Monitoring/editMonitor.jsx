@@ -58,7 +58,8 @@ const EditMonitor = () => {
       const submitData = {
         ...formData,
         department: userData.department,
-        person_accountable: userData.name
+        person_accountable: userData.name,
+        status: 'Pending'  // Set status to Pending when submitting
       };
 
       console.log('Submitting data:', submitData);

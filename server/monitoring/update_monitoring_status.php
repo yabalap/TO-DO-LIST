@@ -159,6 +159,11 @@ try {
         // Set the correct status and progress values based on the action
         $status = strtolower($data['status']) === 'approved' ? 'Approved' : 'Rejected';
         $progress = strtolower($data['status']) === 'approved' ? 'Completed' : 'Pending';
+        
+        // If progress is explicitly provided in the request, use that instead
+        if (isset($data['progress'])) {
+            $progress = $data['progress'];
+        }
         $lastError = null;
 
         logMessage("Attempting to update record", [

@@ -113,7 +113,8 @@ const ViewMonitor = () => {
         },
         body: JSON.stringify({
           id: id,
-          status: status
+          status: status,
+          progress: status === 'rejected' ? 'Pending' : undefined
         })
       });
 

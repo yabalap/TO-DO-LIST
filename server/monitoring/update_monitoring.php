@@ -69,6 +69,7 @@ try {
                      progress = :progress,
                      department = :department,
                      person_accountable = :person_accountable,
+                     status = :status,
                      updated_at = CURRENT_TIMESTAMP
                  WHERE id = :id";
         
@@ -79,6 +80,7 @@ try {
         $stmt->bindParam(':progress', $data['progress']);
         $stmt->bindParam(':department', $data['department']);
         $stmt->bindParam(':person_accountable', $data['person_accountable']);
+        $stmt->bindParam(':status', $data['status']);
         $stmt->bindParam(':id', $id);
         
         if ($stmt->execute() && $stmt->rowCount() > 0) {
