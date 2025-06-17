@@ -37,6 +37,26 @@ const departmentDirectoryMap = {
   "Technical": ["prc_documents", "dole_accredited_trainers_documents", "pcab_documents", "company_lto_suppliers_documents"]
 };
 
+const tableOptions = [
+  { value: 'pcab_documents', label: 'PCAB' },
+  { value: 'iso_certifying_body_documents', label: 'ISO-Certifying Body' },
+  { value: 'dti_sec_cda_documents', label: 'DTI / SEC / CDA' },
+  { value: 'bir_documents', label: 'BIR Documents' },
+  { value: 'lgu_documents', label: 'LGU' },
+  { value: 'sec_documents', label: 'SEC' },
+  { value: 'sss_documents', label: 'SSS' },
+  { value: 'philhealth_documents', label: 'PhilHealth' },
+  { value: 'pag_ibig_fund_documents', label: 'Pag-IBIG Fund' },
+  { value: 'dole_accredited_training_centers_documents', label: 'DOLE-Accredited Training Centers' },
+  { value: 'nbi_documents', label: 'NBI' },
+  { value: 'bir_accredited_cpa_documents', label: 'BIR Accredited CPA' },
+  { value: 'company_appraiser_banks_documents', label: 'Company / Appraiser / Banks' },
+  { value: 'bank_documents', label: 'Bank' },
+  { value: 'prc_documents', label: 'PRC' },
+  { value: 'dole_accredited_trainers_documents', label: 'DOLE / Accredited Trainers' },
+  { value: 'company_lto_suppliers_documents', label: 'Company / LTO / Suppliers' }
+];
+
 const AuditEmployee = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [actionFilter, setActionFilter] = useState('all');
@@ -55,7 +75,8 @@ const AuditEmployee = () => {
       const userDepartment = userData.department;
       const allowedValues = departmentDirectoryMap[userDepartment];
       if (allowedValues) {
-        setFilteredOptions(allowedValues);
+        const newFilteredOptions = tableOptions.filter(option => allowedValues.includes(option.value));
+        setFilteredOptions(newFilteredOptions);
       }
     }
   }, []);
@@ -308,31 +329,17 @@ const AuditEmployee = () => {
             >
               <MenuItem value="all">All Tables</MenuItem>
               {filteredOptions.length > 0 ? (
-                filteredOptions.map((table) => (
-                  <MenuItem key={table} value={table}>
-                    {table.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                filteredOptions.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
                   </MenuItem>
                 ))
               ) : (
-                <>
-                  <MenuItem value="pcab_documents">PCAB</MenuItem>
-                  <MenuItem value="iso_certifying_body_documents">ISO-Certifying Body</MenuItem>
-                  <MenuItem value="dti_sec_cda_documents">DTI / SEC / CDA</MenuItem>
-                  <MenuItem value="bir_documents">BIR Documents</MenuItem>
-                  <MenuItem value="lgu_documents">LGU</MenuItem>
-                  <MenuItem value="sec_documents">SEC</MenuItem>
-                  <MenuItem value="sss_documents">SSS</MenuItem>
-                  <MenuItem value="philhealth_documents">PhilHealth</MenuItem>
-                  <MenuItem value="pag_ibig_fund_documents">Pag-IBIG Fund</MenuItem>
-                  <MenuItem value="dole_accredited_training_centers_documents">DOLE-Accredited Training Centers</MenuItem>
-                  <MenuItem value="nbi_documents">NBI</MenuItem>
-                  <MenuItem value="bir_accredited_cpa_documents">BIR Accredited CPA</MenuItem>
-                  <MenuItem value="company_appraiser_banks_documents">Company / Appraiser / Banks</MenuItem>
-                  <MenuItem value="bank_documents">Bank</MenuItem>
-                  <MenuItem value="prc_documents">PRC</MenuItem>
-                  <MenuItem value="dole_accredited_trainers_documents">DOLE / Accredited Trainers</MenuItem>
-                  <MenuItem value="company_lto_suppliers_documents">Company / LTO / Suppliers</MenuItem>
-                </>
+                tableOptions.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))
               )}
             </Select>
           </FormControl>

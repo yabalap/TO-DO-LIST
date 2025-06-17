@@ -272,7 +272,7 @@ const UploadsEmployee = () => {
                 <Select
                   value={selectedTableFilter}
                   onChange={setSelectedTableFilter}
-                  options={options}
+                  options={filteredOptions}
                   styles={customStyles}
                   placeholder="Select table type..."
                   isClearable
