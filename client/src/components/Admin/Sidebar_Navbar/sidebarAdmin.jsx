@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { MdSpaceDashboard } from "react-icons/md";
 import { FaUserFriends } from "react-icons/fa";
 import { PiMonitor } from "react-icons/pi";
@@ -9,9 +9,7 @@ import { IoMdLogOut } from "react-icons/io";
 import { Link } from 'react-router-dom';
 import '../../../css/Admin/sidebar.css';
 
-const SidebarAdmin = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
+const SidebarAdmin = ({ isCollapsed, setIsCollapsed }) => {
   const menuItems = [
     {
       title: 'Dashboard',

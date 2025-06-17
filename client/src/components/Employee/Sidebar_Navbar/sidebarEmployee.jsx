@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { MdSpaceDashboard } from "react-icons/md";
 import { FaFileUpload } from "react-icons/fa";
 import { PiMonitor } from "react-icons/pi";
@@ -9,9 +9,7 @@ import { IoMdLogOut } from "react-icons/io";
 import { Link } from 'react-router-dom';
 import '../../../css/Employee/sidebar.css';
 
-const SidebarEmployee = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
+const SidebarEmployee = ({ isCollapsed, setIsCollapsed }) => {
   const menuItems = [
     {
       title: 'Dashboard',
