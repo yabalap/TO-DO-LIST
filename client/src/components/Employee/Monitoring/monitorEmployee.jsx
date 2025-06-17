@@ -95,9 +95,9 @@ const MonitorEmployee = () => {
 
   const getStatusColor = (status) => {
     switch (status?.toLowerCase()) {
-      case 'active':
+      case 'approved':
         return 'success';
-      case 'expired':
+      case 'rejected':
         return 'error';
       case 'pending':
         return 'warning';
@@ -178,9 +178,9 @@ const MonitorEmployee = () => {
               onChange={(e) => setStatusFilter(e.target.value)}
             >
               <MenuItem value="all">All</MenuItem>
-              <MenuItem value="active">Active</MenuItem>
               <MenuItem value="pending">Pending</MenuItem>
-              <MenuItem value="expired">Expired</MenuItem>
+              <MenuItem value="approved">Approved</MenuItem>
+              <MenuItem value="rejected">Rejected</MenuItem>
             </Select>
           </FormControl>
         </Grid>
