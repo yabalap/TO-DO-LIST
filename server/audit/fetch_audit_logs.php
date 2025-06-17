@@ -41,9 +41,12 @@ try {
     // Debug: Check session
     error_log("Session data: " . print_r($_SESSION, true));
 
-    // Get user department from session
-    $userDepartment = $_SESSION['department'] ?? null;
-    $userRole = $_SESSION['role'] ?? null;
+    // Get user data from session
+    $userData = isset($_SESSION['userData']) ? json_decode($_SESSION['userData'], true) : null;
+    $userDepartment = $userData['department'] ?? null;
+    $userRole = $userData['role'] ?? null;
+    
+    error_log("User data from session: " . print_r($userData, true));
     error_log("User department: " . ($userDepartment ?? 'null'));
     error_log("User role: " . ($userRole ?? 'null'));
 

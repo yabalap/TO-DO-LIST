@@ -25,6 +25,18 @@ import SearchIcon from '@mui/icons-material/Search';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
+const departmentDirectoryMap = {
+  "Executive": ["pcab_documents", "iso_certifying_body_documents"],
+  "Compliance": ["pcab_documents", "iso_certifying_body_documents"],
+  "Legal": ["dti_sec_cda_documents", "bir_documents", "lgu_documents", "sec_documents", "pcab_documents"],
+  "Corporate Affairs": ["dti_sec_cda_documents", "bir_documents", "lgu_documents", "sec_documents", "pcab_documents"],
+  "HR": ["sss_documents", "philhealth_documents", "pag_ibig_fund_documents", "dole_accredited_training_centers_documents", "nbi_documents"],
+  "Accounting": ["bir_accredited_cpa_documents", "company_appraiser_banks_documents", "bank_documents"],
+  "Finance": ["bir_accredited_cpa_documents", "company_appraiser_banks_documents", "bank_documents"],
+  "Engineer": ["prc_documents", "dole_accredited_trainers_documents", "pcab_documents", "company_lto_suppliers_documents"],
+  "Technical": ["prc_documents", "dole_accredited_trainers_documents", "pcab_documents", "company_lto_suppliers_documents"]
+};
+
 const AuditEmployee = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [actionFilter, setActionFilter] = useState('all');
@@ -33,14 +45,29 @@ const AuditEmployee = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [expandedRows, setExpandedRows] = useState({});
+  const [filteredOptions, setFilteredOptions] = useState([]);
 
   useEffect(() => {
     fetchLogs();
+    // Get user department from localStorage
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    if (userData && userData.department) {
+      const userDepartment = userData.department;
+      const allowedValues = departmentDirectoryMap[userDepartment];
+      if (allowedValues) {
+        setFilteredOptions(allowedValues);
+      }
+    }
   }, []);
 
   const fetchLogs = async () => {
     try {
       setLoading(true);
+      // Get user department from localStorage
+      const userData = JSON.parse(localStorage.getItem('userData'));
+      const userDepartment = userData?.department;
+      console.log('Current user department:', userDepartment);
+
       const response = await fetch('http://localhost/TO-DO-LIST/server/audit/fetch_audit_logs.php', {
         method: 'GET',
         credentials: 'include',
@@ -50,12 +77,30 @@ const AuditEmployee = () => {
       });
 
       const result = await response.json();
+      console.log('Server response:', result);
       
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to fetch audit logs');
+        throw new Error(result.message || 'Failed to fetch audit logs');
       }
 
-      setLogs(result.data);
+      if (result.status === 'error') {
+        throw new Error(result.message || 'Failed to fetch audit logs');
+      }
+
+      // Filter logs based on user's department
+      const filteredLogs = result.data.filter(log => {
+        // If user has no department, show all logs
+        if (!userDepartment) return true;
+        
+        // Get allowed directories for the user's department
+        const allowedDirectories = departmentDirectoryMap[userDepartment] || [];
+        
+        // Check if the log's table_name is in the allowed directories
+        return allowedDirectories.includes(log.table_name);
+      });
+
+      console.log('Filtered logs:', filteredLogs);
+      setLogs(filteredLogs);
       setError(null);
     } catch (error) {
       console.error('Error fetching audit logs:', error);
@@ -262,23 +307,33 @@ const AuditEmployee = () => {
               onChange={(e) => setTableFilter(e.target.value)}
             >
               <MenuItem value="all">All Tables</MenuItem>
-              <MenuItem value="pcab_documents">PCAB</MenuItem>
-              <MenuItem value="iso_certifying_body_documents">ISO-Certifying Body</MenuItem>
-              <MenuItem value="dti_sec_cda_documents">DTI / SEC / CDA</MenuItem>
-              <MenuItem value="bir_documents">BIR Documents</MenuItem>
-              <MenuItem value="lgu_documents">LGU</MenuItem>
-              <MenuItem value="sec_documents">SEC</MenuItem>
-              <MenuItem value="sss_documents">SSS</MenuItem>
-              <MenuItem value="philhealth_documents">PhilHealth</MenuItem>
-              <MenuItem value="pag_ibig_fund_documents">Pag-IBIG Fund</MenuItem>
-              <MenuItem value="dole_accredited_training_centers_documents">DOLE-Accredited Training Centers</MenuItem>
-              <MenuItem value="nbi_documents">NBI</MenuItem>
-              <MenuItem value="bir_accredited_cpa_documents">BIR Accredited CPA</MenuItem>
-              <MenuItem value="company_appraiser_banks_documents">Company / Appraiser / Banks</MenuItem>
-              <MenuItem value="bank_documents">Bank</MenuItem>
-              <MenuItem value="prc_documents">PRC</MenuItem>
-              <MenuItem value="dole_accredited_trainers_documents">DOLE / Accredited Trainers</MenuItem>
-              <MenuItem value="company_lto_suppliers_documents">Company / LTO / Suppliers</MenuItem>
+              {filteredOptions.length > 0 ? (
+                filteredOptions.map((table) => (
+                  <MenuItem key={table} value={table}>
+                    {table.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                  </MenuItem>
+                ))
+              ) : (
+                <>
+                  <MenuItem value="pcab_documents">PCAB</MenuItem>
+                  <MenuItem value="iso_certifying_body_documents">ISO-Certifying Body</MenuItem>
+                  <MenuItem value="dti_sec_cda_documents">DTI / SEC / CDA</MenuItem>
+                  <MenuItem value="bir_documents">BIR Documents</MenuItem>
+                  <MenuItem value="lgu_documents">LGU</MenuItem>
+                  <MenuItem value="sec_documents">SEC</MenuItem>
+                  <MenuItem value="sss_documents">SSS</MenuItem>
+                  <MenuItem value="philhealth_documents">PhilHealth</MenuItem>
+                  <MenuItem value="pag_ibig_fund_documents">Pag-IBIG Fund</MenuItem>
+                  <MenuItem value="dole_accredited_training_centers_documents">DOLE-Accredited Training Centers</MenuItem>
+                  <MenuItem value="nbi_documents">NBI</MenuItem>
+                  <MenuItem value="bir_accredited_cpa_documents">BIR Accredited CPA</MenuItem>
+                  <MenuItem value="company_appraiser_banks_documents">Company / Appraiser / Banks</MenuItem>
+                  <MenuItem value="bank_documents">Bank</MenuItem>
+                  <MenuItem value="prc_documents">PRC</MenuItem>
+                  <MenuItem value="dole_accredited_trainers_documents">DOLE / Accredited Trainers</MenuItem>
+                  <MenuItem value="company_lto_suppliers_documents">Company / LTO / Suppliers</MenuItem>
+                </>
+              )}
             </Select>
           </FormControl>
         </Grid>

@@ -177,19 +177,25 @@ const UploadsEmployee = () => {
 
         let result;
         const contentType = response.headers.get('content-type');
-        if (contentType && contentType.includes('application/json')) {
-          result = await response.json();
-        } else {
-          const text = await response.text();
-          console.error('Non-JSON response:', text);
-          throw new Error('Server returned invalid response format');
+        
+        try {
+          if (contentType && contentType.includes('application/json')) {
+            result = await response.json();
+          } else {
+            const text = await response.text();
+            console.error('Non-JSON response:', text);
+            throw new Error('Server returned an invalid response. Please try again.');
+          }
+        } catch (parseError) {
+          console.error('Error parsing response:', parseError);
+          throw new Error('Failed to process server response. Please try again.');
         }
 
         if (!response.ok) {
-          throw new Error(result.error || 'Upload failed');
+          throw new Error(result.error || 'Upload failed. Please try again.');
         }
 
-        alert(result.message);
+        alert(result.message || 'File uploaded successfully');
         
         setSelectedFile(null);
         setSelectedDirectory(null);
@@ -198,7 +204,7 @@ const UploadsEmployee = () => {
         fetchData();
       } catch (error) {
         console.error('Upload error:', error);
-        alert(error.message || 'An error occurred during upload');
+        alert(error.message || 'An error occurred during upload. Please try again.');
       }
     }
   };

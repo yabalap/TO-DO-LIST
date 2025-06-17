@@ -1,7 +1,7 @@
 <?php
 // Enable error reporting
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
+ini_set('display_errors', 0); // Disable display of errors
+ini_set('log_errors', 1); // Enable error logging
 error_reporting(E_ALL);
 
 // Include CORS middleware
@@ -10,20 +10,23 @@ require_once '../config/cors.php';
 // Set content type
 header('Content-Type: application/json');
 
+// Function to send JSON response
+function sendJsonResponse($data, $statusCode = 200) {
+    http_response_code($statusCode);
+    echo json_encode($data);
+    exit;
+}
+
 // Check if required files exist
 $databaseFile = __DIR__ . '/../config/database.php';
 $vendorFile = __DIR__ . '/../vendor/autoload.php';
 
 if (!file_exists($databaseFile)) {
-    http_response_code(500);
-    echo json_encode(['error' => 'Database configuration file not found']);
-    exit;
+    sendJsonResponse(['error' => 'Database configuration file not found'], 500);
 }
 
 if (!file_exists($vendorFile)) {
-    http_response_code(500);
-    echo json_encode(['error' => 'Vendor autoload file not found. Please run composer install']);
-    exit;
+    sendJsonResponse(['error' => 'Vendor autoload file not found. Please run composer install'], 500);
 }
 
 require_once $databaseFile;
@@ -32,12 +35,8 @@ require $vendorFile;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 require_once '../audit/audit_logger.php';
 
-header('Content-Type: application/json');
-
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    http_response_code(405);
-    echo json_encode(['error' => 'Method not allowed']);
-    exit;
+    sendJsonResponse(['error' => 'Method not allowed'], 405);
 }
 
 try {
@@ -200,8 +199,7 @@ try {
 
 } catch (Exception $e) {
     error_log('Error in upload_handler.php: ' . $e->getMessage());
-    http_response_code(400);
-    echo json_encode([
+    sendJsonResponse([
         'error' => $e->getMessage()
-    ]);
+    ], 400);
 } 
