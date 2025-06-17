@@ -1,8 +1,9 @@
 # Enable CORS
-Header always set Access-Control-Allow-Origin "http://localhost:5173"
-Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
-Header always set Access-Control-Allow-Headers "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, Accept"
-Header always set Access-Control-Allow-Credentials "true"
+Header set Access-Control-Allow-Origin "http://localhost:5173"
+Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+Header set Access-Control-Allow-Headers "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, Accept"
+Header set Access-Control-Allow-Credentials "true"
+Header set Access-Control-Max-Age "3600"
 
 # Handle OPTIONS method
 RewriteEngine On
@@ -17,4 +18,5 @@ DirectoryIndex index.php
 <FilesMatch "\.php$">
     Order Allow,Deny
     Allow from all
+    Require all granted
 </FilesMatch> 

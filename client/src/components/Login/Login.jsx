@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { apiRequest } from '../../config/api';
 import './Login.css';
 
 const Login = () => {
@@ -25,48 +26,25 @@ const Login = () => {
     setLoading(true);
     
     try {
-      console.log('Attempting login with:', formData);
-      
-      const response = await fetch('http://localhost/TO-DO-LIST/server/auth/login.php', {
+      const data = await apiRequest('/auth/login.php', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        credentials: 'include',
         body: JSON.stringify(formData)
       });
 
-      let data;
-      const contentType = response.headers.get('content-type');
-      if (contentType && contentType.includes('application/json')) {
-        data = await response.json();
+      // Store the JWT token and user data
+      localStorage.setItem('token', data.jwt);
+      localStorage.setItem('userRole', data.role);
+      localStorage.setItem('userData', JSON.stringify(data.user));
+      
+      // Redirect based on role
+      if (data.role === 'admin') {
+        navigate('/admin/dashboard', { replace: true });
       } else {
-        const text = await response.text();
-        console.error('Non-JSON response:', text);
-        throw new Error('Server returned invalid response format');
-      }
-
-      console.log('Login response:', data);
-
-      if (response.ok) {
-        // Store the JWT token and user data
-        localStorage.setItem('token', data.jwt);
-        localStorage.setItem('userRole', data.role);
-        localStorage.setItem('userData', JSON.stringify(data.user));
-        
-        // Redirect based on role
-        if (data.role === 'admin') {
-          navigate('/admin/dashboard', { replace: true });
-        } else {
-          navigate('/employee/dashboard', { replace: true });
-        }
-      } else {
-        setError(data.message || 'Login failed');
+        navigate('/employee/dashboard', { replace: true });
       }
     } catch (err) {
       console.error('Login error:', err);
-      setError('An error occurred. Please try again.');
+      setError(err.message || 'An error occurred. Please try again.');
     } finally {
       setLoading(false);
     }
