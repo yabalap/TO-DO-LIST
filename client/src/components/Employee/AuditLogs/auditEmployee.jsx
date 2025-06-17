@@ -113,6 +113,9 @@ const AuditEmployee = () => {
         // If user has no department, show all logs
         if (!userDepartment) return true;
         
+        // If user is from DCC department, show all logs
+        if (userDepartment === 'DCC') return true;
+        
         // Get allowed directories for the user's department
         const allowedDirectories = departmentDirectoryMap[userDepartment] || [];
         
