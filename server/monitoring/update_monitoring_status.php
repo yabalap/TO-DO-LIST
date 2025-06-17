@@ -1,4 +1,6 @@
 <?php
+require_once '../cors.php';
+
 // Start output buffering to catch any unwanted output
 ob_start();
 
