@@ -25,7 +25,10 @@ try {
     }
 
     // Prepare query
-    $query = "SELECT id, username, password, role, created_at, updated_at FROM users WHERE username = ?";
+    $query = "SELECT u.id, u.username, u.password, u.role, u.created_at, u.updated_at, e.department 
+              FROM users u 
+              LEFT JOIN employee e ON u.username = e.username 
+              WHERE u.username = ?";
     $stmt = $db->prepare($query);
     $stmt->execute([$data->username]);
     
@@ -67,6 +70,7 @@ try {
         "user" => array(
             "id" => $row['id'],
             "username" => $row['username'],
+            "department" => $row['department'],
             "created_at" => $row['created_at'],
             "updated_at" => $row['updated_at']
         )

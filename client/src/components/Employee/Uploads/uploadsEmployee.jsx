@@ -60,6 +60,11 @@ const UploadsEmployee = () => {
 
   useEffect(() => {
     fetchData();
+    // Get user department from localStorage
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    if (userData && userData.department) {
+      console.log('User Department:', userData.department);
+    }
   }, []);
 
   const fetchData = async () => {
