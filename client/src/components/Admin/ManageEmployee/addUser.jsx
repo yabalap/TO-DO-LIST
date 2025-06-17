@@ -24,7 +24,8 @@ const AddUser = () => {
     { value: 'Technical', label: 'Technical' },
     { value: 'Accounting', label: 'Accounting' },
     { value: 'HR', label: 'HR' },
-    { value: 'Engineer', label: 'Engineer' }
+    { value: 'Engineer', label: 'Engineer' },
+    { value: 'DCC', label: 'DCC' }
   ];
   const roles = ['admin', 'employee'];
 
