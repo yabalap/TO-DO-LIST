@@ -3,6 +3,66 @@ import { FaSearch, FaUpload, FaTimes, FaFilter } from 'react-icons/fa';
 import Select from 'react-select';
 import '../../../css/Employee/uploads.css';
 
+const departmentDirectoryMap = {
+  "Executive": ["pcab_documents", "iso_certifying_body_documents"],
+  "Compliance": ["pcab_documents", "iso_certifying_body_documents"],
+
+  "Legal": ["dti_sec_cda_documents", "bir_documents", "lgu_documents", "sec_documents", "pcab_documents"],
+  "Corporate Affairs": ["dti_sec_cda_documents", "bir_documents", "lgu_documents", "sec_documents", "pcab_documents"],
+
+  "HR": ["sss_documents", "philhealth_documents", "pag_ibig_fund_documents", "dole_accredited_training_centers_documents", "nbi_documents"],
+
+  "Accounting": ["bir_accredited_cpa_documents", "company_appraiser_banks_documents", "bank_documents"],
+  "Finance": ["bir_accredited_cpa_documents", "company_appraiser_banks_documents", "bank_documents"],
+
+  "Engineer": ["prc_documents", "dole_accredited_trainers_documents", "pcab_documents", "company_lto_suppliers_documents"],
+  "Technical": ["prc_documents", "dole_accredited_trainers_documents", "pcab_documents", "company_lto_suppliers_documents"]
+};
+
+const options = [
+  { value: 'pcab_documents', label: 'PCAB' },
+  { value: 'iso_certifying_body_documents', label: 'ISO-Certifying Body' },
+  { value: 'dti_sec_cda_documents', label: 'DTI / SEC / CDA' },
+  { value: 'bir_documents', label: 'BIR Documents' },
+  { value: 'lgu_documents', label: 'LGU' },
+  { value: 'sec_documents', label: 'SEC' },
+  { value: 'sss_documents', label: 'SSS' },
+  { value: 'philhealth_documents', label: 'PhilHealth' },
+  { value: 'pag_ibig_fund_documents', label: 'Pag-IBIG Fund' },
+  { value: 'dole_accredited_training_centers_documents', label: 'DOLE-Accredited Training Centers' },
+  { value: 'nbi_documents', label: 'NBI' },
+  { value: 'bir_accredited_cpa_documents', label: 'BIR Accredited CPA' },
+  { value: 'company_appraiser_banks_documents', label: 'Company / Appraiser / Banks' },
+  { value: 'bank_documents', label: 'Bank' },
+  { value: 'prc_documents', label: 'PRC' },
+  { value: 'dole_accredited_trainers_documents', label: 'DOLE / Accredited Trainers' },
+  { value: 'company_lto_suppliers_documents', label: 'Company / LTO / Suppliers' }
+];
+
+const customStyles = {
+  control: (base) => ({
+    ...base,
+    minHeight: '42px',
+    border: '1px solid #ddd',
+    boxShadow: 'none',
+    '&:hover': {
+      border: '1px solid #999'
+    }
+  }),
+  menu: (base) => ({
+    ...base,
+    zIndex: 9999
+  }),
+  option: (base, state) => ({
+    ...base,
+    backgroundColor: state.isFocused ? '#f0f0f0' : 'white',
+    color: '#333',
+    '&:active': {
+      backgroundColor: '#e0e0e0'
+    }
+  })
+};
+
 const UploadsEmployee = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [files, setFiles] = useState([]);
@@ -13,57 +73,31 @@ const UploadsEmployee = () => {
   const [error, setError] = useState(null);
   const [selectedTableFilter, setSelectedTableFilter] = useState(null);
   const [showFilterPopup, setShowFilterPopup] = useState(false);
-
-  const options = [
-    { value: 'pcab_documents', label: 'PCAB' },
-    { value: 'iso_certifying_body_documents', label: 'ISO-Certifying Body' },
-    { value: 'dti_sec_cda_documents', label: 'DTI / SEC / CDA' },
-    { value: 'bir_documents', label: 'BIR Documents' },
-    { value: 'lgu_documents', label: 'LGU' },
-    { value: 'sec_documents', label: 'SEC' },
-    { value: 'sss_documents', label: 'SSS' },
-    { value: 'philhealth_documents', label: 'PhilHealth' },
-    { value: 'pag_ibig_fund_documents', label: 'Pag-IBIG Fund' },
-    { value: 'dole_accredited_training_centers_documents', label: 'DOLE-Accredited Training Centers' },
-    { value: 'nbi_documents', label: 'NBI' },
-    { value: 'bir_accredited_cpa_documents', label: 'BIR Accredited CPA' },
-    { value: 'company_appraiser_banks_documents', label: 'Company / Appraiser / Banks' },
-    { value: 'bank_documents', label: 'Bank' },
-    { value: 'prc_documents', label: 'PRC' },
-    { value: 'dole_accredited_trainers_documents', label: 'DOLE / Accredited Trainers' },
-    { value: 'company_lto_suppliers_documents', label: 'Company / LTO / Suppliers' }
-  ];
-
-  const customStyles = {
-    control: (base) => ({
-      ...base,
-      minHeight: '42px',
-      border: '1px solid #ddd',
-      boxShadow: 'none',
-      '&:hover': {
-        border: '1px solid #999'
-      }
-    }),
-    menu: (base) => ({
-      ...base,
-      zIndex: 9999
-    }),
-    option: (base, state) => ({
-      ...base,
-      backgroundColor: state.isFocused ? '#f0f0f0' : 'white',
-      color: '#333',
-      '&:active': {
-        backgroundColor: '#e0e0e0'
-      }
-    })
-  };
+  const [filteredOptions, setFilteredOptions] = useState([]);
 
   useEffect(() => {
     fetchData();
     // Get user department from localStorage
     const userData = JSON.parse(localStorage.getItem('userData'));
+    console.log('User Data from Local Storage:', userData);
     if (userData && userData.department) {
-      console.log('User Department:', userData.department);
+      const userDepartment = userData.department;
+      console.log('Current user department:', userDepartment);
+      const allowedValues = departmentDirectoryMap[userDepartment];
+      console.log('Allowed values for department from map:', allowedValues);
+
+      if (allowedValues) {
+        console.log('Path taken: Department found in map.');
+        const newFilteredOptions = options.filter(option => allowedValues.includes(option.value));
+        setFilteredOptions(newFilteredOptions);
+        console.log('*** newFilteredOptions after set in useEffect:', newFilteredOptions);
+      } else {
+        console.log('Path taken: Department not found in map, showing all options.');
+        setFilteredOptions(options); 
+      }
+    } else {
+      console.log('Path taken: No user data or department, showing all options.');
+      setFilteredOptions(options); 
     }
   }, []);
 
@@ -164,6 +198,8 @@ const UploadsEmployee = () => {
     return matchesSearch && matchesTable;
   });
 
+  console.log('filteredOptions in render:', filteredOptions);
+
   return (
     <div className="uploads-container">
       <div className="uploads-header">
@@ -249,7 +285,7 @@ const UploadsEmployee = () => {
                 <Select
                   value={selectedDirectory}
                   onChange={setSelectedDirectory}
-                  options={options}
+                  options={filteredOptions}
                   styles={customStyles}
                   placeholder="Search and select a directory..."
                   isClearable
