@@ -28,6 +28,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 const AuditEmployee = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [actionFilter, setActionFilter] = useState('all');
+  const [tableFilter, setTableFilter] = useState('all');
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -122,6 +123,38 @@ const AuditEmployee = () => {
         );
       }
       
+      if (parsedChanges.type === 'upload') {
+        const fileInfo = parsedChanges.file_info;
+        return (
+          <Box>
+            <Typography variant="subtitle2" color="text.secondary">
+              Upload Details:
+            </Typography>
+            <Box sx={{ mt: 1 }}>
+              <Typography variant="body2">
+                <strong>File Name:</strong> {fileInfo.file_name}
+              </Typography>
+              <Typography variant="body2">
+                <strong>File Type:</strong> {fileInfo.file_type}
+              </Typography>
+              <Typography variant="body2">
+                <strong>File Size:</strong> {(fileInfo.file_size / 1024).toFixed(2)} KB
+              </Typography>
+              <Typography variant="subtitle2" color="text.secondary" sx={{ mt: 2 }}>
+                Uploaded Data:
+              </Typography>
+              {Object.entries(fileInfo.uploaded_data).map(([key, value]) => (
+                <Box key={key} sx={{ mt: 1 }}>
+                  <Typography variant="body2">
+                    <strong>{key.replace(/_/g, ' ').toUpperCase()}:</strong> {value}
+                  </Typography>
+                </Box>
+              ))}
+            </Box>
+          </Box>
+        );
+      }
+      
       return JSON.stringify(parsedChanges, null, 2);
     } catch (e) {
       return changes;
@@ -135,7 +168,9 @@ const AuditEmployee = () => {
       .includes(searchQuery.toLowerCase());
     const matchesAction =
       actionFilter === 'all' || log.action?.toLowerCase() === actionFilter;
-    return matchesSearch && matchesAction;
+    const matchesTable =
+      tableFilter === 'all' || log.table_name?.toLowerCase() === tableFilter.toLowerCase();
+    return matchesSearch && matchesAction && matchesTable;
   });
 
   if (loading) {
@@ -157,7 +192,7 @@ const AuditEmployee = () => {
   return (
     <Box sx={{ p: 3 }}>
       <Grid container spacing={2} sx={{ mb: 3 }}>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={4}>
           <TextField
             fullWidth
             variant="outlined"
@@ -169,7 +204,7 @@ const AuditEmployee = () => {
             }}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={4}>
           <FormControl fullWidth>
             <InputLabel>Action Filter</InputLabel>
             <Select
@@ -182,6 +217,35 @@ const AuditEmployee = () => {
               <MenuItem value="update">Update</MenuItem>
               <MenuItem value="delete">Delete</MenuItem>
               <MenuItem value="upload">Upload</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <FormControl fullWidth>
+            <InputLabel>Table Filter</InputLabel>
+            <Select
+              value={tableFilter}
+              label="Table Filter"
+              onChange={(e) => setTableFilter(e.target.value)}
+            >
+              <MenuItem value="all">All Tables</MenuItem>
+              <MenuItem value="pcab_documents">PCAB</MenuItem>
+              <MenuItem value="iso_certifying_body_documents">ISO-Certifying Body</MenuItem>
+              <MenuItem value="dti_sec_cda_documents">DTI / SEC / CDA</MenuItem>
+              <MenuItem value="bir_documents">BIR Documents</MenuItem>
+              <MenuItem value="lgu_documents">LGU</MenuItem>
+              <MenuItem value="sec_documents">SEC</MenuItem>
+              <MenuItem value="sss_documents">SSS</MenuItem>
+              <MenuItem value="philhealth_documents">PhilHealth</MenuItem>
+              <MenuItem value="pag_ibig_fund_documents">Pag-IBIG Fund</MenuItem>
+              <MenuItem value="dole_accredited_training_centers_documents">DOLE-Accredited Training Centers</MenuItem>
+              <MenuItem value="nbi_documents">NBI</MenuItem>
+              <MenuItem value="bir_accredited_cpa_documents">BIR Accredited CPA</MenuItem>
+              <MenuItem value="company_appraiser_banks_documents">Company / Appraiser / Banks</MenuItem>
+              <MenuItem value="bank_documents">Bank</MenuItem>
+              <MenuItem value="prc_documents">PRC</MenuItem>
+              <MenuItem value="dole_accredited_trainers_documents">DOLE / Accredited Trainers</MenuItem>
+              <MenuItem value="company_lto_suppliers_documents">Company / LTO / Suppliers</MenuItem>
             </Select>
           </FormControl>
         </Grid>

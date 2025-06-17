@@ -30,6 +30,7 @@ require_once $databaseFile;
 require $vendorFile;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
+require_once '../audit/audit_logger.php';
 
 header('Content-Type: application/json');
 
@@ -73,6 +74,15 @@ try {
     $db = new Database();
     $conn = $db->getConnection();
 
+    // Initialize audit logger
+    $logger = new AuditLogger($conn);
+
+    // Get user information from session
+    session_start();
+    $userData = isset($_SESSION['userData']) ? json_decode($_SESSION['userData'], true) : null;
+    $userName = $userData ? $userData['username'] : 'Unknown';
+    $department = $userData ? $userData['department'] : 'Unknown';
+
     // Begin transaction
     $conn->beginTransaction();
 
@@ -83,9 +93,26 @@ try {
         $sql = "INSERT INTO $tableName ($columns) VALUES ($placeholders)";
         $stmt = $conn->prepare($sql);
 
-        // Insert each row
+        // Insert each row and log the upload
         foreach ($data as $row) {
             $stmt->execute($row);
+            $recordId = $conn->lastInsertId();
+            
+            // Log the upload action
+            $fileInfo = [
+                'file_name' => $file['name'],
+                'file_type' => $file['type'],
+                'file_size' => $file['size'],
+                'uploaded_data' => array_combine($headers, $row)
+            ];
+            
+            $logger->logUpload(
+                $tableName,
+                $recordId,
+                $fileInfo,
+                $userName,
+                $department
+            );
         }
 
         // Commit transaction
